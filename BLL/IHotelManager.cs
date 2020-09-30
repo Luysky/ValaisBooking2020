@@ -9,7 +9,9 @@ namespace BLL
     {
         IHotelDb HotelDb { get; }
 
-        List<Hotel> GetALlHotels(int id);
+        List<Hotel> GetAllHotels(int id);
+
+       
 
     }
 }

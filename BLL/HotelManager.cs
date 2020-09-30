@@ -9,13 +9,15 @@ namespace BLL
 {
     public class HotelManager : IHotelManager
     {
-        public IHotelDb HotelDb { get; }
 
         public HotelManager(IConfiguration configuration)
         {
             HotelDb = new HotelDb(configuration);
         }
 
+        public IHotelDb HotelDb { get; }
+
+        
         public List<Hotel> GetAllHotels(int id)
         {
             return HotelDb.GetAllHotels(id);

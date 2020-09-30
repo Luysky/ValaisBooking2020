@@ -16,8 +16,27 @@ namespace DAL
         }
 
         //list of every Hotels from every city
-        public List<Hotel> GetAllHotels(int id)
+        public List<Hotel> GetAllHotels(List<Object> arrayList)
         {
+
+            String typeArray;
+            String typeNull = "*";
+            String type;
+
+            if (arrayList.IndexOf(1).Equals(null))
+            {
+                type = typeNull;
+            }
+            else
+            {
+                typeArray = arrayList.IndexOf(1).ToString();
+                type = typeArray;
+            }
+
+            //int type = Convert.ToInt32(arrayList.IndexOf(1));
+            
+
+
             List<Hotel> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
 
