@@ -20,28 +20,25 @@ namespace BLL
         
         public List<Hotel> SearchHotels(List<Object> arrayList)
         {
-            String typeArray;
+            String typeValue;
             String typeNull = "IS NOT NULL";
             String type = "=";
-            String type2 = "";
-
+            String app = "'";
+            
             for(int i=1; i < 9; i++)
             {
                 if (arrayList.IndexOf(1).Equals(null))
                 {
                     type = typeNull;
+                    arrayList[i]=type;
                 }
                 else
                 {
-                    typeArray = arrayList.IndexOf(1).ToString();
-                    type = $"{type2}{typeArray}";
+                    typeValue = arrayList.IndexOf(1).ToString();
+                    type = $"{type}{app}{typeValue}{app}";
+                    arrayList[i] = type;
                 }
             }
-
-         
-
-            //int type = Convert.ToInt32(arrayList.IndexOf(1));
-
 
             return HotelDb.SearchHotels(arrayList);
         }

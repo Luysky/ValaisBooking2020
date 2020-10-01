@@ -15,6 +15,10 @@ namespace DAL
             Configuration = configuration;
         }
 
+        public HotelDb()
+        {
+        }
+
         //list of every Hotels from every city
         public List<Hotel> SearchHotels(List<Object> arrayList)
         {
@@ -29,9 +33,10 @@ namespace DAL
             var hastv = arrayList.IndexOf(8);
             var hashairdryer = arrayList.IndexOf(9);
 
+            Console.WriteLine("avant la cn");
             List<Hotel> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
-
+            Console.WriteLine("après la cn");
             try
             {
                 using (SqlConnection cn = new SqlConnection(ConnectionStrings)) 
