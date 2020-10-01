@@ -16,26 +16,18 @@ namespace DAL
         }
 
         //list of every Hotels from every city
-        public List<Hotel> GetAllHotels(List<Object> arrayList)
+        public List<Hotel> SearchHotels(List<Object> arrayList)
         {
 
-            String typeArray;
-            String typeNull = "*";
-            String type;
-
-            if (arrayList.IndexOf(1).Equals(null))
-            {
-                type = typeNull;
-            }
-            else
-            {
-                typeArray = arrayList.IndexOf(1).ToString();
-                type = typeArray;
-            }
-
-            //int type = Convert.ToInt32(arrayList.IndexOf(1));
-            
-
+            var name = arrayList.IndexOf(1);
+            var location = arrayList.IndexOf(2);
+            var category = arrayList.IndexOf(3);
+            var haswifi = arrayList.IndexOf(4);
+            var hasparking = arrayList.IndexOf(5);
+            var type = arrayList.IndexOf(6);
+            var price = arrayList.IndexOf(7);
+            var hastv = arrayList.IndexOf(8);
+            var hashairdryer = arrayList.IndexOf(9);
 
             List<Hotel> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
@@ -44,9 +36,19 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(ConnectionStrings)) 
                 {
-                    string query = "SELECT * FROM Hotel";
+                    string query = "SELECT * FROM Hotel H, Room R WHERE H.Name IS NOT NULL AND H.Location IS NOT NULL AND H.Category IS NOT NULL "
+                        + "AND H.HasWifi IS NOT NULL AND H.HasParking IS NOT NULL AND R.Type IS NOT NULL AND R.Price IS NOT NULL "
+                        + "AND R.HasTV IS NOT NULL AND R.HasHairDryer IS NOT NULL";
                     SqlCommand cmd = new SqlCommand(query, cn);
-                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@H.Name", name);
+                    cmd.Parameters.AddWithValue("@H.Location", location);
+                    cmd.Parameters.AddWithValue("@H.Category", category);
+                    cmd.Parameters.AddWithValue("@H.HasWifi", haswifi);
+                    cmd.Parameters.AddWithValue("@H.HasParking", hasparking);
+                    cmd.Parameters.AddWithValue("@R.Type", type);
+                    cmd.Parameters.AddWithValue("@R.Price", price);
+                    cmd.Parameters.AddWithValue("@R.HasTV", hastv);
+                    cmd.Parameters.AddWithValue("@R.HasHairDryer", hashairdryer);
 
                     cn.Open();
                     using (SqlDataReader dr = cmd.ExecuteReader())

@@ -9,8 +9,12 @@ namespace ConsoleApp
         {
             Console.WriteLine("Hello World!");
 
-            //Test Git
-            //jj
+            String a = "=";
+            String b = "TRUE";
+            String c = $"{a}{b}";
+
+            Console.WriteLine(c);
+
         }
     }
 }
