@@ -20,8 +20,13 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
 
+            String one = "hello";
+            String two = "'";
+            String three = $"{two}{one}'";
+            Console.WriteLine(three);
+
             HotelManager test = new HotelManager(Configuration);
-            List<Object> list = new List<Object>();
+            List<String> list = new List<String>();
 
             list.Add(null);
             list.Add("Sion");

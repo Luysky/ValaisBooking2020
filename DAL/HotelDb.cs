@@ -20,18 +20,18 @@ namespace DAL
         }
 
         //list of every Hotels from every city
-        public List<Hotel> SearchHotels(List<Object> arrayList)
+        public List<Hotel> SearchHotels(List<String> arrayList)
         {
 
-            var name = arrayList.IndexOf(1);
-            var location = arrayList.IndexOf(2);
-            var category = arrayList.IndexOf(3);
-            var haswifi = arrayList.IndexOf(4);
-            var hasparking = arrayList.IndexOf(5);
-            var type = arrayList.IndexOf(6);
-            var price = arrayList.IndexOf(7);
-            var hastv = arrayList.IndexOf(8);
-            var hashairdryer = arrayList.IndexOf(9);
+            var name = (string)arrayList[0];
+            var location = (string)arrayList[1];
+            var category = (string)arrayList[2];
+            var haswifi = (string)arrayList[3];
+            var hasparking = (string)arrayList[4];
+            var type = (string)arrayList[5];
+            var price = (string)arrayList[6];
+            var hastv = (string)arrayList[7];
+            var hashairdryer = (string)arrayList[8];
 
             Console.WriteLine("avant la cn");
             List<Hotel> results = null;
@@ -57,10 +57,12 @@ namespace DAL
 
                     cn.Open();
 
-                    
+                    Console.WriteLine("après la cn");
 
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
+                        
+
                         while (dr.Read())
                         {
                             if (results == null)
@@ -68,12 +70,7 @@ namespace DAL
 
                             Hotel hotel = new Hotel();
 
-                     
-
-                            hotel.IdHotel = (int)dr["IdHotel"];
-
-                            Console.WriteLine("après la cn");
-
+                            hotel.IdHotel = (int)dr["IdHotel"];                      
                             hotel.Name = (string)dr["Name"];
                             hotel.Description = (string)dr["Description"];
                             hotel.Location = (string)dr["Location"];

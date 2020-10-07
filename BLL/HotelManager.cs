@@ -18,25 +18,30 @@ namespace BLL
         public IHotelDb HotelDb { get; }
 
         
-        public List<Hotel> SearchHotels(List<Object> arrayList)
+        public List<Hotel> SearchHotels(List<String> arrayList)
         {
             String typeValue;
             String typeNull = "IS NOT NULL";
             String type = "=";
+            String typeFull = "=";
+            String equal = "=";
             String app = "'";
-            
-            for(int i=1; i < 9; i++)
+
+
+            for (int i=0; i < 9; i++)
             {
-                if (arrayList.IndexOf(i).Equals(null))
+                
+                //if (arrayList[i].Equals(null))
+                if (arrayList[i]==null)
                 {
                     type = typeNull;
                     arrayList[i]=type;
                 }
                 else
                 {
-                    typeValue = arrayList.IndexOf(i).ToString();
-                    type = $"{type}{app}{typeValue}{app}";
-                    arrayList[i] = type;
+                    typeValue = arrayList[i];
+                    typeFull = $"{equal}{app}{typeValue}{app}";
+                    arrayList[i] = typeFull;
                 }
             }
 
