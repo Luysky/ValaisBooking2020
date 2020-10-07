@@ -36,7 +36,7 @@ namespace DAL
             Console.WriteLine("avant la cn");
             List<Hotel> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
-            Console.WriteLine("après la cn");
+           
             try
             {
                 using (SqlConnection cn = new SqlConnection(ConnectionStrings)) 
@@ -56,6 +56,9 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@R.HasHairDryer", hashairdryer);
 
                     cn.Open();
+
+                    
+
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -65,7 +68,12 @@ namespace DAL
 
                             Hotel hotel = new Hotel();
 
+                     
+
                             hotel.IdHotel = (int)dr["IdHotel"];
+
+                            Console.WriteLine("après la cn");
+
                             hotel.Name = (string)dr["Name"];
                             hotel.Description = (string)dr["Description"];
                             hotel.Location = (string)dr["Location"];
@@ -74,6 +82,9 @@ namespace DAL
                             hotel.HasParking = (bool)dr["HasParking"];
                             hotel.Email = (string)dr["Email"];
                             hotel.Website = (string)dr["Website"];
+
+                    
+
                             results.Add(hotel);
                         }
                     }

@@ -27,14 +27,14 @@ namespace BLL
             
             for(int i=1; i < 9; i++)
             {
-                if (arrayList.IndexOf(1).Equals(null))
+                if (arrayList.IndexOf(i).Equals(null))
                 {
                     type = typeNull;
                     arrayList[i]=type;
                 }
                 else
                 {
-                    typeValue = arrayList.IndexOf(1).ToString();
+                    typeValue = arrayList.IndexOf(i).ToString();
                     type = $"{type}{app}{typeValue}{app}";
                     arrayList[i] = type;
                 }
