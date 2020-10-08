@@ -2,6 +2,7 @@
 using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -27,6 +28,16 @@ namespace BLL
             String equal = "=";
             String app = "'";
 
+            List<string> tabledb = new List<string>();
+            tabledb.Add("H.Name");
+            tabledb.Add("H.Location");
+            tabledb.Add("H.Category");
+            tabledb.Add("H.HasWifi");
+            tabledb.Add("H.HasParking");
+            tabledb.Add("H.Type");
+            tabledb.Add("H.Price");
+            tabledb.Add("H.HasTV");
+            tabledb.Add("H.HasHairDryer");
 
             for (int i=0; i < 9; i++)
             {
@@ -34,7 +45,7 @@ namespace BLL
                 //if (arrayList[i].Equals(null))
                 if (arrayList[i]==null)
                 {
-                    type = typeNull;
+                    type = tabledb[i];
                     arrayList[i]=type;
                 }
                 else

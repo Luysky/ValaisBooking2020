@@ -20,7 +20,7 @@ namespace DAL
         }
 
         //list of every Hotels from every city
-        public List<Hotel> SearchHotels(List<String> arrayList)
+        public List<Hotel> SearchHotels(List<string> arrayList)
         {
 
             var name = (string)arrayList[0];
@@ -41,9 +41,10 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(ConnectionStrings)) 
                 {
-                    string query = "SELECT * FROM Hotel H, Room R WHERE H.Name IS NOT NULL AND H.Location IS NOT NULL AND H.Category IS NOT NULL "
-                        + "AND H.HasWifi IS NOT NULL AND H.HasParking IS NOT NULL AND R.Type IS NOT NULL AND R.Price IS NOT NULL "
-                        + "AND R.HasTV IS NOT NULL AND R.HasHairDryer IS NOT NULL";
+                    //faire une show all et faire les critères dans la BLL
+                    string query = "SELECT * FROM Hotel H, Room R WHERE H.Name = @H.Name AND H.Location = @H.Location AND H.Category = @H.Category "
+                        + "AND H.HasWifi = @H.HasWifi AND H.HasParking = @H.HasParking AND R.Type = @R.Type AND R.Price = @R.Price "
+                        + "AND R.HasTV = @R.HasTV AND R.HasHairDryer = @R.HasHairDryer"; 
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@H.Name", name);
                     cmd.Parameters.AddWithValue("@H.Location", location);
