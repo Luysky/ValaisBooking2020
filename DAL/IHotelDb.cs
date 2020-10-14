@@ -9,7 +9,8 @@ namespace DAL
     public interface IHotelDb 
     {
         IConfiguration Configuration { get; }
-        List<Hotel> SearchHotels(List<String> arrayList);
+        List<Room> SearchRoomSimple(String location);
+        List<Hotel> SearchHotels(List<Object> arrayList);
         List<Hotel> GetAllHotels();
         List<Room> GetAllRooms();
 
