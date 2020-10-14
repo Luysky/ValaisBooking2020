@@ -22,7 +22,7 @@ namespace BLL
         public List<Hotel> SearchHotels(List<String> arrayList)
         {
             String typeValue;
-            String typeNull = "IS NOT NULL";
+            //String typeNull = "IS NOT NULL";
             String type = "=";
             String typeFull = "=";
             String equal = "=";
@@ -57,6 +57,21 @@ namespace BLL
             }
 
             return HotelDb.SearchHotels(arrayList);
+        }
+
+        public object GetHotel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Hotel> GetHotels()
+        {
+            return HotelDb.GetAllHotels();
+        }
+
+        public List<Room> GetAllRooms()
+        {
+            return HotelDb.GetAllRooms();
         }
     }
 }

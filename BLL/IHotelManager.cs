@@ -11,7 +11,7 @@ namespace BLL
 
         List<Hotel> SearchHotels(List<String> arrayList);
 
-       
-
+        List<Hotel> GetHotels();
+        List<Room> GetAllRooms();
     }
 }

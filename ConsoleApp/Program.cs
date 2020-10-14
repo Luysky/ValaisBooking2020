@@ -19,7 +19,24 @@ namespace ConsoleApp
            .Build();
         static void Main(string[] args)
         {
+            
+            var hotelDbManager = new HotelManager(Configuration); 
 
+
+            Console.WriteLine("--Get all Hotels--");
+            var hotels = hotelDbManager.GetHotels();
+            foreach (var hotel in hotels)
+            {
+                Console.WriteLine(hotel.ToString());
+            }
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("--Get all Rooms--");
+            var rooms = hotelDbManager.GetAllRooms();
+            foreach (var room in rooms)
+            {
+                Console.WriteLine(room.ToString());
+            }
+            /*
             String one = "hello";
             String two = "'";
             String three = $"{two}{one}'";
@@ -37,20 +54,11 @@ namespace ConsoleApp
             list.Add(null);
             list.Add("TRUE");
             list.Add(null);
-
-            /*
-             * cmd.Parameters.AddWithValue("@H.Name", name);
-                    cmd.Parameters.AddWithValue("@H.Location", location);
-                    cmd.Parameters.AddWithValue("@H.Category", category);
-                    cmd.Parameters.AddWithValue("@H.HasWifi", haswifi);
-                    cmd.Parameters.AddWithValue("@H.HasParking", hasparking);
-                    cmd.Parameters.AddWithValue("@R.Type", type);
-                    cmd.Parameters.AddWithValue("@R.Price", price);
-                    cmd.Parameters.AddWithValue("@R.HasTV", hastv);
-                    cmd.Parameters.AddWithValue("@R.HasHairDryer", hashairdryer);
-             */
+           
             Console.WriteLine("Recherche en cours");
             Console.WriteLine(test.SearchHotels(list));
+            */
+
         }
     }
 }

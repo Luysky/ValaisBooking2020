@@ -6,12 +6,9 @@ using System.Text;
 
 namespace DAL
 {
-    public interface IHotelDb 
+    public interface IBookingDB
     {
         IConfiguration Configuration { get; }
-        List<Hotel> SearchHotels(List<String> arrayList);
-        List<Hotel> GetAllHotels();
-        List<Room> GetAllRooms();
-
+        Bookings AddBooking(Bookings bookings);
     }
 }
