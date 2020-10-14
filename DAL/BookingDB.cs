@@ -26,7 +26,7 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "Insert into Bookings(Reference, CheckIn, CheckOut, Firstname, Lastname, Amount, FK_Bookings_Room) values(@Reference,@CheckIn,@CheckOut,@Firstname,@Lastname, @Amount, @FK_Bookings_Room); SELECT SCOPE_IDENTITY()";
+                    string query = "Insert into Bookings(Reference, CheckIn, CheckOut, Firstname, Lastname, Amount, IdRoom) values(@Reference,@CheckIn,@CheckOut,@Firstname,@Lastname, @Amount, @IdRoom); SELECT SCOPE_IDENTITY()";
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@Reference", bookings.Reference);
                     cmd.Parameters.AddWithValue("@CheckIn", bookings.CheckIn);
@@ -34,9 +34,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Firstname", bookings.Firstname);
                     cmd.Parameters.AddWithValue("@Lastname", bookings.Lastname);
                     cmd.Parameters.AddWithValue("@Amount", bookings.Amount);
-                    //cmd.Parameters.AddWithValue("@FK_Bookings_Room", bookings.);
-
-
+                    cmd.Parameters.AddWithValue("@IdRoom", bookings.IdRoom);
+                    
                     cn.Open();
 
                     bookings.IdBooking = Convert.ToInt32(cmd.ExecuteScalar());

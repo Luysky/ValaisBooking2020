@@ -15,10 +15,11 @@ namespace DTO
 		public string Firstname { get; set; }
 		public string Lastname { get; set; }
 		public double Amount { get; set; }
+		public int IdRoom { get; set; }
 
 		public override string ToString()
 		{
-			return $"{IdBooking}|{Reference}|{CheckIn}|{CheckOut}|{Firstname}|{Lastname}|{Amount}";
+			return $"{IdBooking}|{Reference}|{CheckIn}|{CheckOut}|{Firstname}|{Lastname}|{Amount}|{IdRoom}";
 		}
 
 	}
