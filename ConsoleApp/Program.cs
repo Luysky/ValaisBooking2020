@@ -27,15 +27,26 @@ namespace ConsoleApp
             var hotels = hotelDbManager.GetHotels();
             foreach (var hotel in hotels)
             {
-                Console.WriteLine(hotel.ToString());
+                //Console.WriteLine(hotel.ToString());
             }
             Console.WriteLine("------------------------------");
             Console.WriteLine("--Get all Rooms--");
             var rooms = hotelDbManager.GetAllRooms();
             foreach (var room in rooms)
             {
-                Console.WriteLine(room.ToString());
+                //Console.WriteLine(room.ToString());
             }
+
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("--Get searched Hotels--");
+            var hotelsResult = hotelDbManager.SearchRoomSimple("Martigny");
+            foreach (var hotel in hotelsResult)
+            {
+                Console.WriteLine(hotel.ToString());
+            }
+
+            //test
             /*
             String one = "hello";
             String two = "'";
@@ -43,7 +54,7 @@ namespace ConsoleApp
             Console.WriteLine(three);
 
             HotelManager test = new HotelManager(Configuration);
-            List<String> list = new List<String>();
+            List<Object> list = new List<Object>();
 
             list.Add(null);
             list.Add("Sion");
@@ -58,6 +69,7 @@ namespace ConsoleApp
             Console.WriteLine("Recherche en cours");
             Console.WriteLine(test.SearchHotels(list));
             */
+
 
         }
     }

@@ -9,7 +9,9 @@ namespace BLL
     {
         IHotelDb HotelDb { get; }
 
-        List<Hotel> SearchHotels(List<String> arrayList);
+        List<Room> SearchRoomSimple(string location);
+
+        List<Hotel> SearchHotels(List<Object> arrayList);
 
         List<Hotel> GetHotels();
         List<Room> GetAllRooms();
