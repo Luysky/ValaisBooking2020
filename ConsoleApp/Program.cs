@@ -20,31 +20,54 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             
-            var hotelDbManager = new HotelManager(Configuration); 
+            var hotelDbManager = new HotelManager(Configuration);
+            var roomDbManager = new RoomManager(Configuration);
+            var roomIdManager = new RoomManager(Configuration);
 
-
+            
             Console.WriteLine("--Get all Hotels--");
             var hotels = hotelDbManager.GetHotels();
             foreach (var hotel in hotels)
             {
                 //Console.WriteLine(hotel.ToString());
             }
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("--Get all Rooms--");
-            var rooms = hotelDbManager.GetAllRooms();
-            foreach (var room in rooms)
-            {
-                //Console.WriteLine(room.ToString());
-            }
-
+            
+           
 
             Console.WriteLine("------------------------------");
-            Console.WriteLine("--Get searched Hotels--");
-            var hotelsResult = hotelDbManager.SearchRoomSimple("Martigny");
-            foreach (var hotel in hotelsResult)
+            Console.WriteLine("--Get searched Rooms--");
+            var roomResult = roomDbManager.SearchRoomSimple("Martigny");
+            foreach (var room in roomResult)
             {
-                Console.WriteLine(hotel.ToString());
+               // Console.WriteLine(room.ToString());
             }
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("--Get searched Hotel--");
+            var roomIdResult = roomIdManager.SearchRoomSimple("Martigny");          
+            int size = roomIdResult.Count;
+            
+            //int i = 0;
+            //while (i < size)
+            
+                foreach (var room in roomIdResult)
+                {
+
+
+                    Console.WriteLine(room.ToString());
+                    var hotelResult = hotelDbManager.SearchHotelSimple(room.IdHotel);
+                    foreach (var hotel in hotelResult)
+                    {
+                        Console.WriteLine(hotel.ToString());
+                    Console.WriteLine("------------------------------");
+                    Console.WriteLine("------------------------------");
+                    Console.WriteLine("------------------------------");
+                }
+                }
+                //i++;
+            
+
+
 
             //test
             /*

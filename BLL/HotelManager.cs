@@ -19,9 +19,9 @@ namespace BLL
         public IHotelDb HotelDb { get; }
 
 
-        public List<Room> SearchRoomSimple(string location)
+        public List<Hotel> SearchHotelSimple(int IdHotel)
         {
-            return HotelDb.SearchRoomSimple(location);
+            return HotelDb.SearchHotelSimple(IdHotel);
         }
 
 
@@ -73,11 +73,6 @@ namespace BLL
         public List<Hotel> GetHotels()
         {
             return HotelDb.GetAllHotels();
-        }
-
-        public List<Room> GetAllRooms()
-        {
-            return HotelDb.GetAllRooms();
         }
     }
 }

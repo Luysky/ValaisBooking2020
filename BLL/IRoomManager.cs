@@ -10,5 +10,7 @@ namespace BLL
     {
         IRoomDB RoomDB { get; }
         Room UpdatePriceRoom(Room room);
+        List<Room> SearchRoomSimple(String location);
+        List<int> SearchIdRoomSimple(String location);
     }
 }

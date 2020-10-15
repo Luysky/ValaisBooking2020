@@ -20,5 +20,16 @@ namespace BLL
         {
             return RoomDB.UpdatePriceRoom(room);
         }
+
+        public List<Room> SearchRoomSimple(string location)
+        {
+            return RoomDB.SearchRoomSimple(location);
+        }
+
+        public List<int> SearchIdRoomSimple(string location)
+        {
+            return RoomDB.SearchIdRoomSimple(location);
+        }
+
     }
 }

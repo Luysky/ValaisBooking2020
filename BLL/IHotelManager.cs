@@ -9,11 +9,11 @@ namespace BLL
     {
         IHotelDb HotelDb { get; }
 
-        List<Room> SearchRoomSimple(string location);
+        List<Hotel> SearchHotelSimple(int IdHotel);
 
         List<Hotel> SearchHotels(List<Object> arrayList);
 
         List<Hotel> GetHotels();
-        List<Room> GetAllRooms();
+    
     }
 }

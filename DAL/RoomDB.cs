@@ -43,5 +43,94 @@ namespace DAL
 
             return room;
         }
+
+        public List<Room> SearchRoomSimple(string location)
+        {
+            List<Room> results = null;
+            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                {
+                    string query = "SELECT * FROM Room,Hotel WHERE Location = @Location";
+
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@Location", location);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+
+                        while (dr.Read())
+                        {
+                            if (results == null)
+                                results = new List<Room>();
+
+                            Room room = new Room();
+
+                            room.IdRoom = (int)dr["IdRoom"];
+                            room.Number = (int)dr["Number"];
+                            room.Description = (string)dr["Description"];
+                            room.Type = (int)dr["Type"];
+                            room.Price = (double)(decimal)dr["Price"];
+                            room.HasTV = (bool)dr["HasTV"];
+                            room.HasHairDryer = (bool)dr["HasHairDryer"];
+                            room.IdHotel = (int)dr["IdHotel"];
+
+                            results.Add(room);
+
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return results;
+        }
+
+        public List<int> SearchIdRoomSimple(string location)
+        {
+            List<int> results = null;
+            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                {
+                    string query = "SELECT * FROM Room,Hotel WHERE Location = @Location";
+
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@Location", location);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+
+                        while (dr.Read())
+                        {
+                            if (results == null)
+                                results = new List<int>();
+
+                            int id = (int)dr["IdHotel"];
+
+                            results.Add(id);
+
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return results;
+        }
     }
 }

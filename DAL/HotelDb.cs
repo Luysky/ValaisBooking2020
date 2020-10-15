@@ -16,19 +16,19 @@ namespace DAL
         }
 
 
-        public List<Room> SearchRoomSimple(string location)
+        public List<Hotel> SearchHotelSimple(int IdHotel)
         {
-            List<Room> results = null;
+            List<Hotel> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
                 using (SqlConnection cn = new SqlConnection(ConnectionStrings))
                 {
-                    string query ="SELECT * FROM Room,Hotel WHERE Location = @Location";
+                    string query ="SELECT * FROM Hotel WHERE IdHotel = @IdHotel";
 
                     SqlCommand cmd = new SqlCommand(query, cn);
-                    cmd.Parameters.AddWithValue("@Location", location);
+                    cmd.Parameters.AddWithValue("@IdHotel", IdHotel);
 
                     cn.Open();
 
@@ -39,20 +39,26 @@ namespace DAL
                         while (dr.Read())
                         {
                             if (results == null)
-                                results = new List<Room>();
+                                results = new List<Hotel>();
 
-                            Room room = new Room();
+                            Hotel hotel = new Hotel();
 
-                            room.IdRoom = (int)dr["IdRoom"];
-                            room.Number = (int)dr["Number"];
-                            room.Description = (string)dr["Description"];
-                            room.Type = (int)dr["Type"];
-                            room.Price = (double)(decimal)dr["Price"];
-                            room.HasTV = (bool)dr["HasTV"];
-                            room.HasHairDryer = (bool)dr["HasHairDryer"];
-                            room.IdHotel = (int)dr["IdHotel"];
+                            hotel.IdHotel = (int)dr["IdHotel"];
+                            hotel.Name = (String)dr["Name"];
+                            hotel.Description = (String)dr["Description"];
+                            hotel.Location = (String)dr["Location"];
+                            hotel.Category = (int)dr["Category"];
+                            hotel.HasWifi = (bool)dr["HasWifi"];
+                            hotel.HasParking = (bool)dr["HasParking"];
 
-                            results.Add(room);
+                            if (dr["Phone"] != null)
+                                hotel.Phone = (string)dr["Phone"];
+                            if (dr["Email"] != null)
+                                hotel.Email = (string)dr["Email"];
+                            if (dr["Website"] != null)
+                                hotel.Website = (string)dr["Website"];
+
+                            results.Add(hotel);
 
                         }
                     }
@@ -192,49 +198,6 @@ namespace DAL
                                 hotel.Website = (string)dr["Website"];
 
                             results.Add(hotel);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            return results;
-        }
-
-        public List<Room> GetAllRooms()
-        {
-            List<Room> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
-
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
-                {
-                    string query = "SELECT * from Room";
-                    SqlCommand cmd = new SqlCommand(query, cn);
-
-                    cn.Open();
-
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            if (results == null)
-                                results = new List<Room>(); 
-
-                            Room room = new Room();
-                            room.IdRoom = (int)dr["IdRoom"];
-                            room.Number = (int)dr["Number"];
-                            room.Description = (string)dr["Description"];
-                            room.Type = (int)dr["Type"];
-                            room.Price = (double)(decimal)dr["Price"];
-                            room.HasTV = (bool)dr["HasTV"];
-                            room.HasHairDryer = (bool)dr["HasHairDryer"];
-                            room.IdHotel = (int)dr["IdHotel"];
-
-                            results.Add(room);
                         }
                     }
                 }
