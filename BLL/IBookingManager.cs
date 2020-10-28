@@ -8,7 +8,7 @@ namespace BLL
 {
     public interface IBookingManager
     {
-        IBookingDB BookingDB { get; }
+        IBookingsDB BookingDB { get; }
         Bookings AddBooking(Bookings bookings);
     }
 }

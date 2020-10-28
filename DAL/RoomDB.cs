@@ -53,7 +53,7 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(ConnectionStrings))
                 {
-                    string query = "SELECT * FROM Room,Hotel WHERE Location = @Location";
+                    string query = "SELECT * FROM Room r INNER JOIN Hotel h ON r.IdHotel = h.IdHotel WHERE h.Location = @Location";
 
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@Location", location);
@@ -132,5 +132,7 @@ namespace DAL
             }
             return results;
         }
+
+
     }
 }

@@ -13,10 +13,10 @@ namespace BLL
 
         public HotelManager(IConfiguration configuration)
         {
-            HotelDb = new HotelDb(configuration);
+            HotelDb = new HotelDB(configuration);
         }
 
-        public IHotelDb HotelDb { get; }
+        public IHotelDB HotelDb { get; }
 
 
         public List<Hotel> SearchHotelSimple(int IdHotel)
@@ -24,7 +24,7 @@ namespace BLL
             return HotelDb.SearchHotelSimple(IdHotel);
         }
 
-
+         //Ancienne methode fausse/pas a jour
         public List<Hotel> SearchHotels(List<Object> arrayList)
         {
             String typeValue;

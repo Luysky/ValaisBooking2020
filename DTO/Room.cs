@@ -22,5 +22,10 @@ namespace DTO
 			return $"{IdRoom}|{Number}|{Description}|{Type}|{Price}|{HasTV}|{HasHairDryer}|{IdHotel}";
 		}
 
+		public string ShortInfo()
+        {
+			return $"Chambre numéro: {Number} / CHF: {Price}.- / id hotel: {IdHotel}";
+        }
+
 	}
 }

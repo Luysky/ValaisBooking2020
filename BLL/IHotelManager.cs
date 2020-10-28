@@ -7,7 +7,7 @@ namespace BLL
 {
     public interface IHotelManager
     {
-        IHotelDb HotelDb { get; }
+        IHotelDB HotelDb { get; }
 
         List<Hotel> SearchHotelSimple(int IdHotel);
 

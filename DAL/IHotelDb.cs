@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL
 {
-    public interface IHotelDb 
+    public interface IHotelDB 
     {
         IConfiguration Configuration { get; }
         List<Hotel> SearchHotelSimple(int IdHotel);

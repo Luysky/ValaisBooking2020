@@ -27,6 +27,11 @@ namespace DTO
             return $"{IdHotel}|{Name}|{Description}|{Location}|{Category.ToString()}|{HasWifi.ToString()}|{Phone}|{Email}|{Website}";
         }
 
+        public string ShortInfo()
+        {
+            return $"Hotel: {Name} - {Location}";
+        }
+
 
     }
 }

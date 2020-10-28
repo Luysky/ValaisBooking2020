@@ -21,50 +21,42 @@ namespace ConsoleApp
         {
             
             var hotelDbManager = new HotelManager(Configuration);
-            var roomDbManager = new RoomManager(Configuration);
-            var roomIdManager = new RoomManager(Configuration);
+            var roomDBManager = new RoomManager(Configuration);
+            var pictureDBManager = new PictureManager(Configuration);
 
             
-            Console.WriteLine("--Get all Hotels--");
-            var hotels = hotelDbManager.GetHotels();
-            foreach (var hotel in hotels)
-            {
-                //Console.WriteLine(hotel.ToString());
-            }
-            
-           
-
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("--Get searched Rooms--");
-            var roomResult = roomDbManager.SearchRoomSimple("Martigny");
-            foreach (var room in roomResult)
-            {
-               // Console.WriteLine(room.ToString());
-            }
 
             Console.WriteLine("------------------------------");
             Console.WriteLine("--Get searched Hotel--");
-            var roomIdResult = roomIdManager.SearchRoomSimple("Martigny");          
-            int size = roomIdResult.Count;
-            
-            //int i = 0;
-            //while (i < size)
+            var roomIdResult = roomDBManager.SearchRoomSimple("Martigny");          
             
                 foreach (var room in roomIdResult)
                 {
 
+                    Console.WriteLine(room.ShortInfo());
 
-                    Console.WriteLine(room.ToString());
+                    Console.WriteLine();
                     var hotelResult = hotelDbManager.SearchHotelSimple(room.IdHotel);
                     foreach (var hotel in hotelResult)
                     {
-                        Console.WriteLine(hotel.ToString());
+                    Console.WriteLine(hotel.ShortInfo());
+                    Console.WriteLine();
+
+                    var pictureResult = pictureDBManager.SearchListPicture(room.IdRoom);
+                    Console.WriteLine("Pictures : ");
+                    foreach (var picture in pictureResult)
+                    {
+                        Console.WriteLine(picture.Url);
+                    }
+
+                    Console.WriteLine();
                     Console.WriteLine("------------------------------");
-                    Console.WriteLine("------------------------------");
-                    Console.WriteLine("------------------------------");
+                    Console.WriteLine();
                 }
                 }
-                //i++;
+
+
+
             
 
 

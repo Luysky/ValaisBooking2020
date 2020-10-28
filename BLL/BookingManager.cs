@@ -11,10 +11,10 @@ namespace BLL
     {
         public BookingManager(IConfiguration configuration)
         {
-            BookingDB = new BookingDB(configuration);
+            BookingDB = new BookingsDB(configuration);
         }
 
-        public IBookingDB BookingDB { get; }
+        public IBookingsDB BookingDB { get; }
 
         public Bookings AddBooking(Bookings bookings)
         {

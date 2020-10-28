@@ -6,11 +6,11 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    public class HotelDb : IHotelDb
+    public class HotelDB : IHotelDB
     {
         public IConfiguration Configuration { get; }
 
-        public HotelDb(IConfiguration configuration)
+        public HotelDB(IConfiguration configuration)
         {
             Configuration = configuration;
         }
