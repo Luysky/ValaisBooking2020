@@ -22,5 +22,10 @@ namespace DTO
 			return $"{IdBooking}|{Reference}|{CheckIn}|{CheckOut}|{Firstname}|{Lastname}|{Amount}|{IdRoom}";
 		}
 
+		public string ShortInfo()
+        {
+			return $"Nom : {Firstname} {Lastname} - Arrivée: {CheckIn.ToShortDateString()} - Départ: {CheckOut.ToShortDateString()} - IdRoom: {IdRoom}";
+        }
+
 	}
 }

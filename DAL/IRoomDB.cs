@@ -10,8 +10,8 @@ namespace DAL
     {
         IConfiguration Configuration { get; }
         Room UpdatePriceRoom(Room room);
-        List<Room> SearchRoomSimple(String location);
-        List<int> SearchIdRoomSimple(String location);
+        List<Room> SearchRoomSimple(string location);
+        List<int> SearchIdRoomSimple(string location);
         
     }
 }

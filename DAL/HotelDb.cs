@@ -44,9 +44,9 @@ namespace DAL
                             Hotel hotel = new Hotel();
 
                             hotel.IdHotel = (int)dr["IdHotel"];
-                            hotel.Name = (String)dr["Name"];
-                            hotel.Description = (String)dr["Description"];
-                            hotel.Location = (String)dr["Location"];
+                            hotel.Name = (string)dr["Name"];
+                            hotel.Description = (string)dr["Description"];
+                            hotel.Location = (string)dr["Location"];
                             hotel.Category = (int)dr["Category"];
                             hotel.HasWifi = (bool)dr["HasWifi"];
                             hotel.HasParking = (bool)dr["HasParking"];

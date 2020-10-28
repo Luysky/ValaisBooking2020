@@ -10,5 +10,7 @@ namespace BLL
     {
         IBookingsDB BookingDB { get; }
         Bookings AddBooking(Bookings bookings);
+        List<Bookings> GetAllReservation();
+        List<Bookings> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut);
     }
 }

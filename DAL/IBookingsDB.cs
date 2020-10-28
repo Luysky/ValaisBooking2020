@@ -10,6 +10,7 @@ namespace DAL
     {
         IConfiguration Configuration { get; }
         Bookings AddBooking(Bookings bookings);
-        public List<Bookings> GetAllReservation(string location);
+        List<Bookings> GetAllReservation();
+        List<Bookings> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut);
     }
 }

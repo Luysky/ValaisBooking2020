@@ -44,7 +44,7 @@ namespace DAL
 
                             Picture picture = new Picture();
                             picture.IdPicture = (int)dr["IdPicture"];
-                            picture.Url = (String)dr["Url"];
+                            picture.Url = (string)dr["Url"];
                             picture.IdRoom = (int)dr["IdRoom"];
 
                             results.Add(picture);

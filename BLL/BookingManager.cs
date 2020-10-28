@@ -20,5 +20,15 @@ namespace BLL
         {
             return BookingDB.AddBooking(bookings);
         }
+
+        public List<Bookings> GetAllReservation()
+        {
+            return BookingDB.GetAllReservation();
+        }
+
+        public List<Bookings> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut)
+        {
+            return BookingDB.GetAllReservationDate(IdRoom, CheckIn, CheckOut);
+        }
     }
 }
