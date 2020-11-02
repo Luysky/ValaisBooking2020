@@ -2,7 +2,6 @@
 using DAL;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BLL
 {
@@ -12,5 +11,8 @@ namespace BLL
         Room UpdatePriceRoom(Room room);
         List<Room> SearchRoomSimple(String location);
         List<int> SearchIdRoomSimple(String location);
+        List<Room> SearchEveryRooms();
+        List<Room> getRoomsMultiQueries(List<Object> listCriteria, List<Room> listRooms);
+        void getSearchedHotel(RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, string city);
     }
 }

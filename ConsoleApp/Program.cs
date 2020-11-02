@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.IO;
 using BLL;
-using DAL;
 using DTO;
 using Microsoft.Extensions.Configuration;
 
@@ -17,124 +13,75 @@ namespace ConsoleApp
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
            .Build();
+
+
+
         static void Main(string[] args)
         {
             
-            var hotelDbManager = new HotelManager(Configuration);
+            var hotelDBManager = new HotelManager(Configuration);
             var roomDBManager = new RoomManager(Configuration);
             var pictureDBManager = new PictureManager(Configuration);
             var bookingsDBManager = new BookingManager(Configuration);
 
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("--Get searched Hotel--");
-            var roomIdResult = roomDBManager.SearchRoomSimple("Martigny");          
-            
-                foreach (var room in roomIdResult)
-                {
-
-                    Console.WriteLine(room.ShortInfo());
-
-                    Console.WriteLine();
-                    var hotelResult = hotelDbManager.SearchHotelSimple(room.IdHotel);
-                    foreach (var hotel in hotelResult)
-                    {
-                    Console.WriteLine(hotel.ShortInfo());
-                    Console.WriteLine();
-
-                    var pictureResult = pictureDBManager.SearchListPicture(room.IdRoom);
-                    Console.WriteLine("Pictures : ");
-                    foreach (var picture in pictureResult)
-                    {
-                        Console.WriteLine(picture.Url);
-                    }
-
-                    Console.WriteLine();
-                    Console.WriteLine("------------------------------");
-                    Console.WriteLine();
-                }
-                }
-
+            //Affiche tous les hotels se trouvant dans une localité
+            //roomDBManager.getSearchedHotel(roomDBManager,hotelDBManager,pictureDBManager,"Martigny");
 
             //Afficher toutes les réservations
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("--Get every bookings--");
-            var bookingsResult =  bookingsDBManager.GetAllReservation();
-            foreach (var booking in bookingsResult)
-            {
-                Console.WriteLine(booking.ShortInfo());
-            }
-
+            //bookingsDBManager.getEveryBookings(bookingsDBManager);
 
             //Afficher toutes les réservations sur une chambre pour une période donnée
-            //Permet de vérifier si la chambre est réservable ou pas. 
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("--Get every bookings with a date for a specific room--");
             var checkIn = new DateTime(2020, 10, 10);
             var checkOut = new DateTime(2020, 11, 15);
-            bookingsResult = bookingsDBManager.GetAllReservationDate(1, checkIn, checkOut);
-            
-            List<int> listRoomBooked = new List<int>();
-            foreach (var booking in bookingsResult)
-            {     
-                    Console.WriteLine(booking.ShortInfo());
-                    listRoomBooked.Add(booking.IdRoom);
-            }
+            //bookingsDBManager.getBookingsWithRoomAndDates(bookingsDBManager, 1, checkIn, checkOut);
+
+            //Afficher la requête search
+            //bookingsDBManager.searchSimple(roomDBManager, bookingsDBManager.getBookingsWithRoomAndDates(bookingsDBManager, 1, checkIn, checkOut), hotelDBManager, pictureDBManager, "Martigny");
 
 
 
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("------------------------------");
-
-            Console.WriteLine("--Search simple--");
-            var roomResult = roomDBManager.SearchRoomSimple("Martigny");
 
 
-            //Comparaison de toutes les rooms et des Id déjà réservé
-            //Les chambres aux idRoom non booké sont ajoutés à une nouvelle liste (liste à jour avec localisation et date)
-            //Cette nouvelle liste sera utilisée pour la suite des recherches
+            //Récupration de toutes les rooms réservées pour une période précise
+            //Retourne une liste de int (numéro IdRoom)
+            var bookingsResult = bookingsDBManager.GetAllReservationDateSimple(checkIn, checkOut);
 
-            //Le test fonctionne car les chambres déjà bookées pour les dates en question genre la chambre 1001 IdRoom 1 n'apparait pas dans la liste
+            //Retourne une liste de room
+            var listRoomAvailable = bookingsDBManager.searchEveryAvailableRooms(roomDBManager, hotelDBManager, pictureDBManager, bookingsResult);
 
-            int sizeBooked = listRoomBooked.Count;
-            List<Room> listFinal = new List<Room>();
+            List<Object> criteriaRoom = new List<object>();
+            criteriaRoom.Add(1);
+            criteriaRoom.Add(true);
+            criteriaRoom.Add(true);
 
-            for (int i = 0; i<sizeBooked; i++)
-            {
-                foreach(var room in roomResult)
-                {
-                    int bookedRoom = listRoomBooked[i];
-                    if (room.IdRoom != bookedRoom)
-                    {
-                        listFinal.Add(room);
-                    }
-                }
-            }
-            foreach (var room in listFinal)
-            {
+            /*
+             critera.Add(2);
+            critera.Add(true);
+            critera.Add(false);
+            */
 
-                Console.WriteLine(room.ShortInfo());
-                Console.WriteLine();
-                var hotelResult = hotelDbManager.SearchHotelSimple(room.IdHotel);
-                foreach (var hotel in hotelResult)
-                {
-                    Console.WriteLine(hotel.ShortInfo());
-                    Console.WriteLine();
+            //Ca me ressort une liste de rooms qui correspondent aux conditions
+            //roomDBManager.getRoomsMultiQueries(criteriaRoom,listRoomAvailable);
 
-                    var pictureResult = pictureDBManager.SearchListPicture(room.IdRoom);
-                    Console.WriteLine("Pictures : ");
-                    foreach (var picture in pictureResult)
-                    {
-                        Console.WriteLine(picture.Url);
-                    }
+            //Retourne une liste d'hotels - Tous les hotels
+            //var hotelsResult = hotelDBManager.GetHotels();
 
-                    Console.WriteLine();
-                    Console.WriteLine("------------------------------");
-                    Console.WriteLine();
-                }
-            }
+            List<Object> criteriaHotel = new List<object>();
+            criteriaHotel.Add("Martigny");
+            criteriaHotel.Add(null);
+            criteriaHotel.Add(true);
+            criteriaHotel.Add(false);
+
+            //Retourne une liste d hotels qui correspondent aux conditions 
+            //var listHotelAvailable = hotelDBManager.getHotelsMultiQueries(criteriaHotel,hotelsResult);
+
+            //METHODE FAUSSE ! A CORRIGER LES DOUBLONS DANS LE RESULTAT
+            bookingsDBManager.searchAdvanced(bookingsDBManager, roomDBManager, hotelDBManager, pictureDBManager, criteriaRoom, criteriaHotel,checkIn,checkOut);
 
 
+
+            /*
+                
 
             //ANCIEN BROUILLON POUR SEARCH MULTIPLE
             /*
@@ -163,4 +110,6 @@ namespace ConsoleApp
 
         }
     }
+
+
 }

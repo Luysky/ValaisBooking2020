@@ -12,6 +12,7 @@ namespace DAL
         List<Hotel> SearchHotelSimple(int IdHotel);
         List<Hotel> SearchHotels(List<Object> arrayList);
         List<Hotel> GetAllHotels();
+        Hotel SearchHotelById(int IdHotel);
 
     }
 }

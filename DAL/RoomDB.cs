@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace DAL
 {
@@ -121,6 +120,54 @@ namespace DAL
                             int id = (int)dr["IdHotel"];
 
                             results.Add(id);
+
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return results;
+        }
+
+        public List<Room> SearchEveryRooms()
+        {
+            List<Room> results = null;
+            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                {
+                    string query = "SELECT * FROM Room r INNER JOIN Hotel h ON r.IdHotel = h.IdHotel";
+
+                    SqlCommand cmd = new SqlCommand(query, cn);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+
+                        while (dr.Read())
+                        {
+                            if (results == null)
+                                results = new List<Room>();
+
+                            Room room = new Room();
+
+                            room.IdRoom = (int)dr["IdRoom"];
+                            room.Number = (int)dr["Number"];
+                            room.Description = (string)dr["Description"];
+                            room.Type = (int)dr["Type"];
+                            room.Price = (double)(decimal)dr["Price"];
+                            room.HasTV = (bool)dr["HasTV"];
+                            room.HasHairDryer = (bool)dr["HasHairDryer"];
+                            room.IdHotel = (int)dr["IdHotel"];
+
+                            results.Add(room);
 
                         }
                     }
