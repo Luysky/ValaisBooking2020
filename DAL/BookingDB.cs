@@ -191,5 +191,30 @@ namespace DAL
             return results;
         }
 
+        public int DeleteBooking(int idBooking)
+        {
+            int result = 0;
+            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                {
+                    string query = "DELETE FROM Bookings WHERE IdBooking = @idBooking";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@idBooking", idBooking);
+
+                    cn.Open();
+
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return result;
+        }
     }
 }

@@ -8,14 +8,18 @@ namespace BLL
     public interface IBookingManager
     {
         IBookingDB BookingDB { get; }
+        IRoomDB RoomDB { get; }
+        IHotelDB HotelDB { get; }
+        IPictureDB PictureDB { get; }
         Booking AddBooking(Booking booking);
         List<Booking> GetAllReservation();
         List<Booking> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut);
         List<int> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut);
-        void GetEveryBookings(BookingManager bookingsDBManager);
-        List<int> GetBookingsWithRoomAndDates(BookingManager bookingDBManager, int idRoom, DateTime checkIn, DateTime checkOut);
-        void SearchSimple(RoomManager roomDBManager, List<int> listRoomBooked, HotelManager hotelDBManager, PictureManager pictureDBManager, string city);
-        List<Room> SearchEveryAvailableRooms(RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, List<int> listRoomBooked);
-        void SearchAdvanced(BookingManager bookingDBManager, RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, List<Object> listCriteriaRoom, List<Object> listCriteriaHotel, DateTime checkIn, DateTime checkOut);
+        void GetEveryBookings();
+        List<int> GetBookingsWithRoomAndDates(int idRoom, DateTime checkIn, DateTime checkOut);
+        void SearchSimple(List<int> listRoomBooked, string city);
+        List<Room> SearchEveryAvailableRooms(List<int> listRoomBooked);
+        void SearchAdvanced(HotelManager hotelManager, RoomManager roomManager, List<Object> listCriteriaRoom, List<Object> listCriteriaHotel, DateTime checkIn, DateTime checkOut);
+        int DeleteBooking(int idBooking);
     }
 }

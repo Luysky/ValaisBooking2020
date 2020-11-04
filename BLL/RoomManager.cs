@@ -14,6 +14,7 @@ namespace BLL
             RoomDB = new RoomDB(configuration);
         }
 
+
         public IRoomDB RoomDB { get; }
 
         public Room UpdatePriceRoom(Room room)
