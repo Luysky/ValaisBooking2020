@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DTO
 {
-    public class Bookings
+    public class Booking
     {
 		public int IdBooking { get; set; }
 		[Required]

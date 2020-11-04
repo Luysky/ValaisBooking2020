@@ -6,16 +6,16 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    public class BookingsDB : IBookingsDB
+    public class BookingDB : IBookingDB
     {
         public IConfiguration Configuration { get; }
 
-        public BookingsDB(IConfiguration configuration)
+        public BookingDB(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public Bookings AddBooking(Bookings bookings)
+        public Booking AddBooking(Booking bookings)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
@@ -47,9 +47,9 @@ namespace DAL
             return bookings;
         }
 
-        public List<Bookings> GetAllReservation()
+        public List<Booking> GetAllReservation()
         {
-            List<Bookings> results = null;
+            List<Booking> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
 
             try
@@ -69,9 +69,9 @@ namespace DAL
                         {
 
                             if (results == null)
-                                results = new List<Bookings>();
+                                results = new List<Booking>();
 
-                            Bookings bookings = new Bookings();
+                            Booking bookings = new Booking();
 
                             bookings.IdBooking = (int)dr["IdBooking"];
                             bookings.Reference = (int)dr["Reference"];
@@ -94,9 +94,9 @@ namespace DAL
             return results;
         }
 
-        public List<Bookings> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut)
+        public List<Booking> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut)
         {
-            List<Bookings> results = null;
+            List<Booking> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
 
             try
@@ -117,9 +117,9 @@ namespace DAL
                         {
 
                             if (results == null)
-                                results = new List<Bookings>();
+                                results = new List<Booking>();
 
-                            Bookings bookings = new Bookings();
+                            Booking bookings = new Booking();
 
                             bookings.IdBooking = (int)dr["IdBooking"];
                             bookings.Reference = (int)dr["Reference"];
@@ -142,9 +142,9 @@ namespace DAL
             return results;
         }
 
-        public List<Bookings> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut)
+        public List<Booking> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut)
         {
-            List<Bookings> results = null;
+            List<Booking> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
 
             try
@@ -166,9 +166,9 @@ namespace DAL
                         {
 
                             if (results == null)
-                                results = new List<Bookings>();
+                                results = new List<Booking>();
 
-                            Bookings bookings = new Bookings();
+                            Booking bookings = new Booking();
 
                             bookings.IdBooking = (int)dr["IdBooking"];
                             bookings.Reference = (int)dr["Reference"];

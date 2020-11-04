@@ -36,39 +36,6 @@ namespace BLL
             return RoomDB.SearchEveryRooms();
         }
 
-
-        public void GetSearchedHotel(RoomManager roomDBManager,HotelManager hotelDBManager,PictureManager pictureDBManager,string city)
-        {
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("--Get searched Hotel--");
-            var roomIdResult = roomDBManager.SearchRoomSimple(city);
-
-            foreach (var room in roomIdResult)
-            {
-
-                Console.WriteLine(room.ShortInfo());
-
-                Console.WriteLine();
-                var hotelResult = hotelDBManager.SearchHotelSimple(room.IdHotel);
-                foreach (var hotel in hotelResult)
-                {
-                    Console.WriteLine(hotel.ShortInfo());
-                    Console.WriteLine();
-
-                    var pictureResult = pictureDBManager.SearchListPicture(room.IdRoom);
-                    Console.WriteLine("Pictures : ");
-                    foreach (var picture in pictureResult)
-                    {
-                        Console.WriteLine(picture.Url);
-                    }
-
-                    Console.WriteLine();
-                    Console.WriteLine("------------------------------");
-                    Console.WriteLine();
-                }
-            }
-        }
-
         public List<Room> GetRoomsMultiQueries(List<Object>listCriteria,List<Room>listRooms)
         {
             List<Room> listResult = new List<Room>();

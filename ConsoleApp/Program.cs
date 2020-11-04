@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using BLL;
+using DTO;
 using Microsoft.Extensions.Configuration;
 
 namespace ConsoleApp
@@ -25,7 +26,7 @@ namespace ConsoleApp
 
 
             //Afficher toutes les réservations
-            //bookingsDBManager.GetEveryBookings(bookingsDBManager);
+            bookingsDBManager.GetEveryBookings(bookingsDBManager);
 
 
             var checkIn = new DateTime(2020, 10, 10);
@@ -50,6 +51,13 @@ namespace ConsoleApp
             //Afficher la requête search advanced
             bookingsDBManager.SearchAdvanced(bookingsDBManager, roomDBManager, hotelDBManager, pictureDBManager, criteriaRoom, criteriaHotel,checkIn,checkOut);
 
+            //Insert a new reservation
+            var checkIn2 = new DateTime(2020, 11, 4);
+            var checkOut2 = new DateTime(2020, 11, 7);
+            
+            //bookingsDBManager.AddBooking(new Booking { Reference = 20201141, CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Banderas", Firstname = "Antonio", Amount = 300, IdRoom = 5 });
+
+            //bookingsDBManager.GetEveryBookings(bookingsDBManager);
 
         }
     }

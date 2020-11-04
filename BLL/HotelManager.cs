@@ -23,9 +23,9 @@ namespace BLL
         }
 
 
-        public List<Hotel> SearchHotelSimple(int IdHotel)
+        public List<Hotel> SearchListHotelById(int IdHotel)
         {
-            return HotelDb.SearchHotelSimple(IdHotel);
+            return HotelDb.SearchListHotelById(IdHotel);
         }
 
         public List<Hotel> GetHotels()

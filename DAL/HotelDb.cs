@@ -15,7 +15,7 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public List<Hotel> SearchHotelSimple(int IdHotel)
+        public List<Hotel> SearchListHotelById(int IdHotel)
         {
             List<Hotel> results = null;
             string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
