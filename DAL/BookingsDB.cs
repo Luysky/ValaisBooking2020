@@ -17,8 +17,6 @@ namespace DAL
 
         public Bookings AddBooking(Bookings bookings)
         {
-
-
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
@@ -115,8 +113,6 @@ namespace DAL
 
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-
-
                         while (dr.Read())
                         {
 

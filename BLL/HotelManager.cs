@@ -2,10 +2,7 @@
 using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
 
 namespace BLL
 {
@@ -31,64 +28,15 @@ namespace BLL
             return HotelDb.SearchHotelSimple(IdHotel);
         }
 
-         //Ancienne methode fausse/pas a jour
-        public List<Hotel> SearchHotels(List<Object> arrayList)
-        {
-            String typeValue;
-            //String typeNull = "IS NOT NULL";
-            String type = "=";
-            String typeFull = "=";
-            String equal = "=";
-            String app = "'";
-
-            List<string> tabledb = new List<string>();
-            tabledb.Add("H.Name");
-            tabledb.Add("H.Location");
-            tabledb.Add("H.Category");
-            tabledb.Add("H.HasWifi");
-            tabledb.Add("H.HasParking");
-            tabledb.Add("H.Type");
-            tabledb.Add("H.Price");
-            tabledb.Add("H.HasTV");
-            tabledb.Add("H.HasHairDryer");
-
-            for (int i=0; i < 9; i++)
-            {
-                
-                //if (arrayList[i].Equals(null))
-                if (arrayList[i]==null)
-                {
-                    type = tabledb[i];
-                    arrayList[i]=type;
-                }
-                else
-                {
-                    //typeValue = arrayList[i];
-                    //typeFull = $"{equal}{app}{typeValue}{app}";
-                    arrayList[i] = typeFull;
-                }
-            }
-
-            return HotelDb.SearchHotels(arrayList);
-        }
-
-        public object GetHotel()
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Hotel> GetHotels()
         {
             return HotelDb.GetAllHotels();
         }
 
-        public List<Hotel> getHotelsMultiQueries(List<Object> listCriteria, List<Hotel> listHotels)
+        public List<Hotel> GetHotelsMultiQueries(List<Object> listCriteria, List<Hotel> listHotels)
         {
             List<Hotel> listResult = new List<Hotel>();
             List<Hotel> listResultTemp = new List<Hotel>();
-
-            Console.WriteLine(listResult.Count);
-
 
             var location = listCriteria[0];
             var category = listCriteria[1];
@@ -108,8 +56,6 @@ namespace BLL
                     }
                 }
             }
-
-            Console.WriteLine(listResult.Count);
 
             if (category != null)
             {
@@ -143,7 +89,6 @@ namespace BLL
                 listResultTemp = new List<Hotel>();
             }
 
-            Console.WriteLine(listResult.Count);
 
             if (hasWifi != null)
             {
@@ -178,8 +123,6 @@ namespace BLL
             }
 
 
-            Console.WriteLine(listResult.Count);
-
             if (hasParking != null)
             {
                 bool hasParkingV = (bool)hasParking;
@@ -211,8 +154,6 @@ namespace BLL
             {
                 listResult = listHotels;
             }
-
-            Console.WriteLine(listResult.Count);
 
             return listResult;
         }

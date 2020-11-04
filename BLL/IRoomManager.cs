@@ -9,10 +9,10 @@ namespace BLL
     {
         IRoomDB RoomDB { get; }
         Room UpdatePriceRoom(Room room);
-        List<Room> SearchRoomSimple(String location);
-        List<int> SearchIdRoomSimple(String location);
+        List<Room> SearchRoomSimple(string location);
+        List<int> SearchIdRoomSimple(string location);
         List<Room> SearchEveryRooms();
-        List<Room> getRoomsMultiQueries(List<Object> listCriteria, List<Room> listRooms);
-        void getSearchedHotel(RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, string city);
+        List<Room> GetRoomsMultiQueries(List<Object> listCriteria, List<Room> listRooms);
+        void GetSearchedHotel(RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, string city);
     }
 }

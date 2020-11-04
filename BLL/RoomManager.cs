@@ -3,7 +3,6 @@ using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace BLL
 {
@@ -38,7 +37,7 @@ namespace BLL
         }
 
 
-        public void getSearchedHotel(RoomManager roomDBManager,HotelManager hotelDBManager,PictureManager pictureDBManager,string city)
+        public void GetSearchedHotel(RoomManager roomDBManager,HotelManager hotelDBManager,PictureManager pictureDBManager,string city)
         {
             Console.WriteLine("------------------------------");
             Console.WriteLine("--Get searched Hotel--");
@@ -70,13 +69,10 @@ namespace BLL
             }
         }
 
-        public List<Room> getRoomsMultiQueries(List<Object>listCriteria,List<Room>listRooms)
+        public List<Room> GetRoomsMultiQueries(List<Object>listCriteria,List<Room>listRooms)
         {
             List<Room> listResult = new List<Room>();
             List<Room> listResultTemp = new List<Room>();
-
-            Console.WriteLine(listResult.Count);
-
 
             var type = listCriteria[0];
             var hasTv = listCriteria[1];
@@ -95,8 +91,6 @@ namespace BLL
                     }
                 }
             }
-
-            Console.WriteLine(listResult.Count);
 
             if (hasTv != null)
             {
@@ -130,7 +124,6 @@ namespace BLL
                 listResultTemp = new List<Room>();
             }
 
-            Console.WriteLine(listResult.Count);
 
             if (hasHairDryer != null)
             {
@@ -161,18 +154,13 @@ namespace BLL
             if (!listResultTemp.Count.Equals(0))
             {
                 listResult = listResultTemp;
-                listResultTemp = new List<Room>();
             }
-
-            Console.WriteLine(listResult.Count);
 
 
             if (listResult.Count.Equals(0))
             {
                 listResult = listRooms;
             }
-
-            Console.WriteLine(listResult.Count);
 
             return listResult;
         }

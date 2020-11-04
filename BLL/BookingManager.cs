@@ -37,7 +37,6 @@ namespace BLL
             List<int> listRoomBooked = new List<int>();
             foreach (var booking in bookingsResult)
             {
-                //Console.WriteLine(booking.ShortInfo());
                 listRoomBooked.Add(booking.IdRoom);
             }
 
@@ -45,7 +44,7 @@ namespace BLL
         }
 
 
-        public void getEveryBookings(BookingManager bookingsDBManager)
+        public void GetEveryBookings(BookingManager bookingsDBManager)
         {
             //Afficher toutes les réservations
             Console.WriteLine("------------------------------");
@@ -57,7 +56,7 @@ namespace BLL
             }
         }
 
-        public List<int> getBookingsWithRoomAndDates(BookingManager bookingsDBManager, int idRoom, DateTime checkIn, DateTime checkOut)
+        public List<int> GetBookingsWithRoomAndDates(BookingManager bookingsDBManager, int idRoom, DateTime checkIn, DateTime checkOut)
         {
             //Afficher toutes les réservations sur une chambre pour une période donnée
             //Permet de vérifier si la chambre est réservable ou pas. 
@@ -81,7 +80,7 @@ namespace BLL
             return listRoomBooked;
         }
 
-        public void searchSimple(RoomManager roomDBManager, List<int> listRoomBooked, HotelManager hotelDBManager, PictureManager pictureDBManager, String city)
+        public void SearchSimple(RoomManager roomDBManager, List<int> listRoomBooked, HotelManager hotelDBManager, PictureManager pictureDBManager, string city)
         {
             Console.WriteLine("--Search simple--");
             var roomResult = roomDBManager.SearchRoomSimple(city);
@@ -125,7 +124,7 @@ namespace BLL
 
         }
 
-        public void searchAdvanced(BookingManager bookingsDBManager, RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, List<Object> listCriteriaRoom, List<Object> listCriteriaHotel,DateTime checkIn,DateTime checkOut)
+        public void SearchAdvanced(BookingManager bookingsDBManager, RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, List<Object> listCriteriaRoom, List<Object> listCriteriaHotel,DateTime checkIn,DateTime checkOut)
         {
 
             Console.WriteLine("--Search advanced--");
@@ -134,61 +133,39 @@ namespace BLL
             var bookingsResult = bookingsDBManager.GetAllReservationDateSimple(checkIn, checkOut);
 
             //toutes les chambres disponibles pour une periode       
-            var roomAvailableResult = bookingsDBManager.searchEveryAvailableRooms(roomDBManager, hotelDBManager, pictureDBManager, bookingsResult);
+            var roomAvailableResult = bookingsDBManager.SearchEveryAvailableRooms(roomDBManager, hotelDBManager, pictureDBManager, bookingsResult);
 
             //Ressort les rooms avec les premieres conditions
-            var roomResult = roomDBManager.getRoomsMultiQueries(listCriteriaRoom, roomAvailableResult);
+            var roomResult = roomDBManager.GetRoomsMultiQueries(listCriteriaRoom, roomAvailableResult);
 
             //Ressort tous les hotels correspondant aux criteres de rooms
             List<Hotel> hotelsAvailable = new List<Hotel>();
+            List<Hotel> hotelsFinal = new List<Hotel>();
 
-
-
-            List<int> listId = new List<int>();
-            foreach(var hotel in hotelsAvailable)
-            {
-                listId.Add(hotel.IdHotel);
-            }
-
-            var noDouble = listId.Distinct().ToList();
-
-            foreach (var room in roomResult)
-            //foreach (var id in noDouble)
-            {
-
-                //Hotel hotel = hotelDBManager.SearchHotelById(id);
-                Hotel hotel = hotelDBManager.SearchHotelById(room.IdHotel);
-
-
-
-                /*
-                    if (!hotel.IdHotel.Equals(room.IdHotel))
-                    {
-                        hotelsAvailable.Add(hotelDBManager.SearchHotelById(room.IdHotel));
-
-                        Console.WriteLine("Je rajoute : " + hotel.Name);
-                    }
-
-        */
-
-
-
-                //if (!hotelsAvailable.Contains(hotel))
-                //{
-                hotelsAvailable.Add(hotelDBManager.SearchHotelById(room.IdHotel));
-
-                //hotelsAvailable.Add(hotelDBManager.SearchHotelById(id));
-
-                Console.WriteLine("Je rajoute : "+hotel.Name);
-               //}
-            }
 
             
+            foreach (var room in roomResult)
+            {
+                Hotel hotel = hotelDBManager.SearchHotelById(room.IdHotel);
+
+                hotelsAvailable.Add(hotelDBManager.SearchHotelById(room.IdHotel));
+                      
+            }
+
+
+            var test = hotelsAvailable.Select(p => p.IdHotel)
+                            .Distinct()
+                            .ToList();
+
+            foreach(var t in test)
+            {
+                hotelsFinal.Add(hotelDBManager.SearchHotelById(t));
+            }
 
 
             //Ressort tous les hotels correspondant aux criteres de hotels
-            var hotelResult = hotelDBManager.getHotelsMultiQueries(listCriteriaHotel, hotelsAvailable);
-
+            //var hotelResult = hotelDBManager.getHotelsMultiQueries(listCriteriaHotel, hotelsAvailable);
+            var hotelResult = hotelDBManager.GetHotelsMultiQueries(listCriteriaHotel, hotelsFinal);
 
             foreach (var hotel in hotelResult)
             {
@@ -206,7 +183,7 @@ namespace BLL
 
 
         //Retourne la liste des chambres disponibles
-        public List<Room> searchEveryAvailableRooms(RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, List<int> listRoomBooked)
+        public List<Room> SearchEveryAvailableRooms(RoomManager roomDBManager, HotelManager hotelDBManager, PictureManager pictureDBManager, List<int> listRoomBooked)
         {
             //Console.WriteLine("--Search every available rooms--");
             var roomResult = roomDBManager.SearchEveryRooms();
