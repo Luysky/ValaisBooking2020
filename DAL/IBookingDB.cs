@@ -12,6 +12,7 @@ namespace DAL
         List<Booking> GetAllReservation();
         List<Booking> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut);
         List<Booking> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut);
+        Booking UpdateBooking(Booking booking);
         int DeleteBooking(int idBooking);
     }
 }

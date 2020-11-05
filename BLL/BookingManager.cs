@@ -203,6 +203,11 @@ namespace BLL
             return listFinal;
         }
 
+        public Booking UpdateBooking(Booking booking)
+        {
+            return BookingDB.UpdateBooking(booking);
+        }
+
         public int DeleteBooking(int idBooking)
         {
             return BookingDB.DeleteBooking(idBooking);

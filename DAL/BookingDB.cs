@@ -191,6 +191,36 @@ namespace DAL
             return results;
         }
 
+        public Booking UpdateBooking(Booking booking)
+        {
+            int result = 0;
+            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                { 
+                    string query = "UPDATE [Bookings] SET CheckIN=@CheckIn, CheckOut=@CheckOut, Firstname=@Firstname, Lastname=@Lastname WHERE idBooking=@id";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@id", booking.IdBooking);
+                    cmd.Parameters.AddWithValue("@CheckIn", booking.CheckIn);
+                    cmd.Parameters.AddWithValue("@CheckOut", booking.CheckOut);
+                    cmd.Parameters.AddWithValue("@Firstname", booking.Firstname);
+                    cmd.Parameters.AddWithValue("@Lastname", booking.Lastname);
+
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return booking;
+        }
+
+
         public int DeleteBooking(int idBooking)
         {
             int result = 0;
