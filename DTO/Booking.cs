@@ -7,7 +7,7 @@ namespace DTO
     {
 		public int IdBooking { get; set; }
 		[Required]
-		public int Reference { get; set; }
+		public string Reference { get; set; }
 		public DateTime CheckIn { get; set; }
 		public DateTime CheckOut { get; set; }
 		public string Firstname { get; set; }

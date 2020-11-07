@@ -46,11 +46,11 @@ namespace DAL
         public List<Room> SearchRoomSimple(string location)
         {
             List<Room> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Room r INNER JOIN Hotel h ON r.IdHotel = h.IdHotel WHERE h.Location = @Location";
 
@@ -95,11 +95,11 @@ namespace DAL
         public List<int> SearchIdRoomSimple(string location)
         {
             List<int> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Room,Hotel WHERE Location = @Location";
 
@@ -135,11 +135,11 @@ namespace DAL
         public List<Room> SearchEveryRooms()
         {
             List<Room> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Room r INNER JOIN Hotel h ON r.IdHotel = h.IdHotel";
 

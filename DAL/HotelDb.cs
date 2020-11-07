@@ -18,11 +18,11 @@ namespace DAL
         public List<Hotel> SearchListHotelById(int IdHotel)
         {
             List<Hotel> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query ="SELECT * FROM Hotel WHERE IdHotel = @IdHotel";
 
@@ -73,11 +73,11 @@ namespace DAL
         public Hotel SearchHotelById(int IdHotel)
         {
             Hotel results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Hotel WHERE IdHotel = @IdHotel";
 
@@ -128,11 +128,11 @@ namespace DAL
         public List<Hotel> GetAllHotels()
         {
             List<Hotel> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * from Hotel";
                     SqlCommand cmd = new SqlCommand(query, cn);
@@ -145,13 +145,9 @@ namespace DAL
                         {
                             if (results == null)
                                 results = new List<Hotel>();
-                                //results2 = new List<Room>();
-
 
                             Hotel hotel = new Hotel();
-                      
-                           
-
+                                               
                             hotel.IdHotel = (int)dr["IdHotel"];
                             hotel.Name = (String)dr["Name"];
                             hotel.Description = (String)dr["Description"];
