@@ -191,23 +191,23 @@ namespace DAL
             return results;
         }
 
-        public Booking UpdateBooking(Booking booking)
+       
+
+        public Booking UpdateBooking(int IdBooking, DateTime CheckIn, DateTime CheckOut)
         {
             
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            Booking booking = new Booking();
             try
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
-                { 
-                    string query = "UPDATE [Bookings] SET CheckIN=@CheckIn, CheckOut=@CheckOut, Firstname=@Firstname, Lastname=@Lastname WHERE idBooking=@id";
-                    SqlCommand cmd = new SqlCommand(query, cn);
-                    cmd.Parameters.AddWithValue("@id", booking.IdBooking);
-                    cmd.Parameters.AddWithValue("@CheckIn", booking.CheckIn);
-                    cmd.Parameters.AddWithValue("@CheckOut", booking.CheckOut);
-                    cmd.Parameters.AddWithValue("@Firstname", booking.Firstname);
-                    cmd.Parameters.AddWithValue("@Lastname", booking.Lastname);
+                {
 
+                    string query = "UPDATE Bookings SET CheckIn=@CheckIn, CheckOut=@CheckOut WHERE IdBooking=@id";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@id", IdBooking);
+                    cmd.Parameters.AddWithValue("@CheckIn", CheckIn);
+                    cmd.Parameters.AddWithValue("@CheckOut", CheckOut);
 
                     cn.Open();
                     cmd.ExecuteNonQuery();

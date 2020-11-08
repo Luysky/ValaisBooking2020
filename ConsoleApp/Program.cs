@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.IO;
+using System.Net.Http.Headers;
 using BLL;
 using DTO;
 using Microsoft.Extensions.Configuration;
@@ -49,17 +51,26 @@ namespace ConsoleApp
             //bookingManager.SearchAdvanced(criteriaRoom, criteriaHotel,checkIn,checkOut);
 
             //Insert a new reservation
-            var checkIn2 = new DateTime(2020, 11, 4);
-            var checkOut2 = new DateTime(2020, 11, 7);
+            var checkIn2 = new DateTime(2020, 11, 6);
+            var checkOut2 = new DateTime(2020, 11, 8);
 
-            
-            
-            //bookingManager.AddBooking(new Booking { Reference = DateTime.Now.ToString("yyyyMMddHHmmss"), CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Johansson", Firstname = "Scarlett", Amount = 300, IdRoom = 5 });
+            //bookingManager.AddBooking(new Booking { Reference = DateTime.Now.ToString("20200811123"), CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Meric", Firstname = "Chevrier", Amount = 300, IdRoom = 7 });
             bookingManager.GetEveryBookings();
 
             //Delete one reservation
             //bookingManager.DeleteBooking(24);
 
+            
+            //update Booking
+            /*
+            Console.WriteLine("Update Booking");
+            var checkIn3 = new DateTime(2020, 11, 11);
+            var checkOut3 = new DateTime(2020, 11, 14);
+            bookingManager.UpdateBooking(25, checkIn3, checkOut3);
+            bookingManager.GetEveryBookings();
+            */
+            
+        
         }
     }
 

@@ -220,9 +220,9 @@ namespace BLL
         }
 
             //Pouvoir modifier une reservartion
-            public Booking UpdateBooking(Booking booking)
+            public Booking UpdateBooking(int IdBooking, DateTime CheckIn, DateTime CheckOut)
         {
-            return BookingDB.UpdateBooking(booking);
+            return BookingDB.UpdateBooking(IdBooking, CheckIn, CheckOut);
         }
 
         public int DeleteBooking(int idBooking)
