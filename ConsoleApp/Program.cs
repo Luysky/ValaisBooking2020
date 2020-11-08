@@ -20,9 +20,9 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            
+       
             var bookingManager = new BookingManager(Configuration);
-
+            Booking booking = new Booking();
 
             //Afficher toutes les réservations
             //bookingManager.GetEveryBookings();
@@ -54,21 +54,25 @@ namespace ConsoleApp
             var checkIn2 = new DateTime(2020, 11, 6);
             var checkOut2 = new DateTime(2020, 11, 8);
 
-            //bookingManager.AddBooking(new Booking { Reference = DateTime.Now.ToString("20200811123"), CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Meric", Firstname = "Chevrier", Amount = 300, IdRoom = 7 });
+            //bookingManager.AddBooking(new Booking { Reference = DateTime.Now.ToString("20200811123"), CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Flavien", Firstname = "Chevrier", Amount = 300, IdRoom = 7 });
             bookingManager.GetEveryBookings();
 
+            var bookings = new Booking { Reference = DateTime.Now.ToString("20200811123"), CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Flavien", Firstname = "Chevrier", Amount = 300, IdRoom = 7 };
+            bookingManager.AddBooking(bookings, bookings.Amount);
+
             //Delete one reservation
-            //bookingManager.DeleteBooking(24);
+            //bookingManager.DeleteBooking(41);
+            bookingManager.GetEveryBookings();
 
 
             //update Booking
-            
+            /*
             Console.WriteLine("Update Booking");
             var checkIn3 = new DateTime(2020, 11, 12);
             var checkOut3 = new DateTime(2020, 11, 15);
             bookingManager.UpdateBooking("20201107182400", checkIn3, checkOut3);
             bookingManager.GetEveryBookings();
-            
+            */
 
 
         }

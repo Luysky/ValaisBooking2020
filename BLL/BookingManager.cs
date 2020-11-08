@@ -32,9 +32,30 @@ namespace BLL
         public IPictureDB PictureDB { get; }
 
 
-        public Booking AddBooking(Booking booking)
+        public Booking AddBooking(Booking booking, double amount)
         {
-            return BookingDB.AddBooking(booking);
+             DateTime checkin = booking.CheckIn;
+             DateTime checkout = booking.CheckOut;
+
+            double nbnight;
+            amount = booking.Amount;
+            double amount2;
+
+
+            Console.WriteLine("prix de la nuit " + amount);
+
+            nbnight = (checkout - checkin).TotalDays;
+
+            Console.WriteLine("nb de nuit " + nbnight);
+
+            if (nbnight > 1)
+            {
+                amount2 = (amount * nbnight);
+                Console.WriteLine("prix des nuit " + amount);
+                return BookingDB.AddBooking(booking, amount2);
+            }
+            else
+            return BookingDB.AddBooking(booking, amount);
         }
 
         public List<Booking> GetAllReservation()
