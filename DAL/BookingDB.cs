@@ -50,11 +50,11 @@ namespace DAL
         public List<Booking> GetAllReservation()
         {
             List<Booking> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Bookings WHERE IdRoom=IdRoom";
                     SqlCommand cmd = new SqlCommand(query, cn);
@@ -74,7 +74,7 @@ namespace DAL
                             Booking bookings = new Booking();
 
                             bookings.IdBooking = (int)dr["IdBooking"];
-                            bookings.Reference = (int)dr["Reference"];
+                            bookings.Reference = (string)dr["Reference"];
                             bookings.CheckIn = (DateTime)dr["CheckIn"];
                             bookings.CheckOut = (DateTime)dr["CheckOut"];
                             bookings.Firstname = (string)dr["Firstname"];
@@ -97,11 +97,11 @@ namespace DAL
         public List<Booking> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut)
         {
             List<Booking> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Bookings WHERE IdRoom = @IdRoom AND(CheckIn BETWEEN @CheckIn AND @CheckOut)";
                     SqlCommand cmd = new SqlCommand(query, cn);
@@ -122,7 +122,7 @@ namespace DAL
                             Booking bookings = new Booking();
 
                             bookings.IdBooking = (int)dr["IdBooking"];
-                            bookings.Reference = (int)dr["Reference"];
+                            bookings.Reference = (string)dr["Reference"];
                             bookings.CheckIn = (DateTime)dr["CheckIn"];
                             bookings.CheckOut = (DateTime)dr["CheckOut"];
                             bookings.Firstname = (string)dr["Firstname"];
@@ -145,11 +145,11 @@ namespace DAL
         public List<Booking> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut)
         {
             List<Booking> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Bookings WHERE IdRoom = IdRoom AND(CheckIn BETWEEN @CheckIn AND @CheckOut)";
                     SqlCommand cmd = new SqlCommand(query, cn);
@@ -171,7 +171,7 @@ namespace DAL
                             Booking bookings = new Booking();
 
                             bookings.IdBooking = (int)dr["IdBooking"];
-                            bookings.Reference = (int)dr["Reference"];
+                            bookings.Reference = (string)dr["Reference"];
                             bookings.CheckIn = (DateTime)dr["CheckIn"];
                             bookings.CheckOut = (DateTime)dr["CheckOut"];
                             bookings.Firstname = (string)dr["Firstname"];
@@ -193,12 +193,12 @@ namespace DAL
 
         public Booking UpdateBooking(Booking booking)
         {
-            int result = 0;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 { 
                     string query = "UPDATE [Bookings] SET CheckIN=@CheckIn, CheckOut=@CheckOut, Firstname=@Firstname, Lastname=@Lastname WHERE idBooking=@id";
                     SqlCommand cmd = new SqlCommand(query, cn);
@@ -224,11 +224,11 @@ namespace DAL
         public int DeleteBooking(int idBooking)
         {
             int result = 0;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "DELETE FROM Bookings WHERE IdBooking = @idBooking";
                     SqlCommand cmd = new SqlCommand(query, cn);

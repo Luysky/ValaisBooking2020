@@ -3,6 +3,7 @@ using DTO;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace BLL
@@ -10,19 +11,26 @@ namespace BLL
     public class BookingManager : IBookingManager
     {
 
+        private HotelManager hotelManager;
+        private RoomManager roomManager;
+       
+
         public BookingManager(IConfiguration configuration)
         {
             BookingDB = new BookingDB(configuration);
             RoomDB = new RoomDB(configuration);
             HotelDB = new HotelDB(configuration);
             PictureDB = new PictureDB(configuration);
-        }
 
+            hotelManager = new HotelManager(configuration);
+            roomManager = new RoomManager(configuration);
+        }
 
         public IBookingDB BookingDB { get; }
         public IRoomDB RoomDB { get; }
         public IHotelDB HotelDB { get; }
         public IPictureDB PictureDB { get; }
+
 
         public Booking AddBooking(Booking booking)
         {
@@ -80,6 +88,8 @@ namespace BLL
 
         public void SearchSimple(List<int> listRoomBooked, string city)
         {
+            //Methode void pour l instant a modifier ulterieurement pour retourner une liste avec liste room, liste hotel,liste picture
+
             Console.WriteLine("--Search simple--");
             var roomResult = RoomDB.SearchRoomSimple(city);
             int sizeBooked = listRoomBooked.Count;
@@ -122,43 +132,33 @@ namespace BLL
 
         }
 
-        public void SearchAdvanced(HotelManager hotelManager, RoomManager roomManager, List<Object> listCriteriaRoom, List<Object> listCriteriaHotel,DateTime checkIn,DateTime checkOut)
+        public void SearchAdvanced(List<Object> listCriteriaRoom, List<Object> listCriteriaHotel,DateTime checkIn,DateTime checkOut)
         {
 
             Console.WriteLine("--Search advanced--");
 
             //toutes les chambres occupees pour une periode
-            //var bookingsResult = BookingDB.GetAllReservationDateSimple(checkIn, checkOut);
-
             var bookingsResult = GetAllReservationDateSimple(checkIn, checkOut);
 
             //toutes les chambres disponibles pour une periode       
             var roomAvailableResult = SearchEveryAvailableRooms(bookingsResult);
 
             //Ressort les rooms avec les premieres conditions
-            //var roomResult = RoomBLL.GetRoomsMultiQueries(listCriteriaRoom, roomAvailableResult);
-
             var roomResult = roomManager.GetRoomsMultiQueries(listCriteriaRoom, roomAvailableResult);
 
             //Ressort tous les hotels correspondant aux criteres de rooms
             List<Hotel> hotelsAvailable = new List<Hotel>();
             List<Hotel> hotelsFinal = new List<Hotel>();
-
-
-            
+          
             foreach (var room in roomResult)
             {
-                Hotel hotel = HotelDB.SearchHotelById(room.IdHotel);
-
-                hotelsAvailable.Add(HotelDB.SearchHotelById(room.IdHotel));
-                      
+                hotelsAvailable.Add(HotelDB.SearchHotelById(room.IdHotel));                   
             }
-
 
             var test = hotelsAvailable.Select(p => p.IdHotel)
                             .Distinct()
                             .ToList();
-
+            
             foreach(var t in test)
             {
                 hotelsFinal.Add(HotelDB.SearchHotelById(t));
@@ -166,7 +166,6 @@ namespace BLL
 
 
             //Ressort tous les hotels correspondant aux criteres de hotels
-            //var hotelResult = hotelDBManager.getHotelsMultiQueries(listCriteriaHotel, hotelsAvailable);
             var hotelResult = hotelManager.GetHotelsMultiQueries(listCriteriaHotel, hotelsFinal);
 
             foreach (var hotel in hotelResult)

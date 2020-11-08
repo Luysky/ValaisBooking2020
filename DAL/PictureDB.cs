@@ -19,11 +19,11 @@ namespace DAL
         {
 
             List<Picture> results = null;
-            string ConnectionStrings = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             try
             {
-                using (SqlConnection cn = new SqlConnection(ConnectionStrings))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Picture WHERE IdRoom = @idRoom";
 

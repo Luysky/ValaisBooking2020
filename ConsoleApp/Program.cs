@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using BLL;
+using DTO;
 using Microsoft.Extensions.Configuration;
 
 namespace ConsoleApp
@@ -18,21 +19,18 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             
-            var hotelDBManager = new HotelManager(Configuration);
-            var roomDBManager = new RoomManager(Configuration);
-            var pictureDBManager = new PictureManager(Configuration);
-            var bookingsDBManager = new BookingManager(Configuration);
+            var bookingManager = new BookingManager(Configuration);
 
 
             //Afficher toutes les réservations
-            //bookingsDBManager.GetEveryBookings();
+            //bookingManager.GetEveryBookings();
 
 
             var checkIn = new DateTime(2020, 10, 10);
             var checkOut = new DateTime(2020, 11, 15);
 
             //Afficher la requête search simple
-            //bookingsDBManager.SearchSimple(bookingsDBManager.GetBookingsWithRoomAndDates(1, checkIn, checkOut), "Martigny");
+            //bookingManager.SearchSimple(bookingManager.GetBookingsWithRoomAndDates(1, checkIn, checkOut), "Martigny");
 
 
             //Données nécessaires pour la recherche Advanced
@@ -48,17 +46,19 @@ namespace ConsoleApp
             criteriaHotel.Add(false);
 
             //Afficher la requête search advanced
-            //bookingsDBManager.SearchAdvanced(hotelDBManager,roomDBManager,criteriaRoom, criteriaHotel,checkIn,checkOut);
+            //bookingManager.SearchAdvanced(criteriaRoom, criteriaHotel,checkIn,checkOut);
 
             //Insert a new reservation
             var checkIn2 = new DateTime(2020, 11, 4);
             var checkOut2 = new DateTime(2020, 11, 7);
+
             
-            //bookingsDBManager.AddBooking(new Booking { Reference = 20201141, CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Banderas", Firstname = "Antonio", Amount = 300, IdRoom = 5 });
-            bookingsDBManager.GetEveryBookings();
+            
+            //bookingManager.AddBooking(new Booking { Reference = DateTime.Now.ToString("yyyyMMddHHmmss"), CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Johansson", Firstname = "Scarlett", Amount = 300, IdRoom = 5 });
+            bookingManager.GetEveryBookings();
 
             //Delete one reservation
-            //bookingsDBManager.DeleteBooking(22);
+            //bookingManager.DeleteBooking(24);
 
         }
     }
