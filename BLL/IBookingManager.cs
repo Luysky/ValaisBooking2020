@@ -20,7 +20,7 @@ namespace BLL
         void SearchSimple(List<int> listRoomBooked, string city);
         List<Room> SearchEveryAvailableRooms(List<int> listRoomBooked);
         void SearchAdvanced(List<Object> listCriteriaRoom, List<Object> listCriteriaHotel, DateTime checkIn, DateTime checkOut);
-        Booking UpdateBooking(int IdBooking, DateTime CheckIn, DateTime CheckOut);
+        Booking UpdateBooking(string Reference, DateTime CheckIn, DateTime CheckOut);
         int DeleteBooking(int idBooking);
     }
 }

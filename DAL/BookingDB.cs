@@ -193,7 +193,7 @@ namespace DAL
 
        
 
-        public Booking UpdateBooking(int IdBooking, DateTime CheckIn, DateTime CheckOut)
+        public Booking UpdateBooking(string Reference, DateTime CheckIn, DateTime CheckOut)
         {
             
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -203,9 +203,9 @@ namespace DAL
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
 
-                    string query = "UPDATE Bookings SET CheckIn=@CheckIn, CheckOut=@CheckOut WHERE IdBooking=@id";
+                    string query = "UPDATE Bookings SET CheckIn=@CheckIn, CheckOut=@CheckOut WHERE Reference=@id";
                     SqlCommand cmd = new SqlCommand(query, cn);
-                    cmd.Parameters.AddWithValue("@id", IdBooking);
+                    cmd.Parameters.AddWithValue("@id", Reference);
                     cmd.Parameters.AddWithValue("@CheckIn", CheckIn);
                     cmd.Parameters.AddWithValue("@CheckOut", CheckOut);
 

@@ -60,17 +60,17 @@ namespace ConsoleApp
             //Delete one reservation
             //bookingManager.DeleteBooking(24);
 
-            
+
             //update Booking
-            /*
-            Console.WriteLine("Update Booking");
-            var checkIn3 = new DateTime(2020, 11, 11);
-            var checkOut3 = new DateTime(2020, 11, 14);
-            bookingManager.UpdateBooking(25, checkIn3, checkOut3);
-            bookingManager.GetEveryBookings();
-            */
             
-        
+            Console.WriteLine("Update Booking");
+            var checkIn3 = new DateTime(2020, 11, 12);
+            var checkOut3 = new DateTime(2020, 11, 15);
+            bookingManager.UpdateBooking("20201107182400", checkIn3, checkOut3);
+            bookingManager.GetEveryBookings();
+            
+
+
         }
     }
 
