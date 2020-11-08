@@ -42,16 +42,16 @@ namespace BLL
             double amount2;
 
 
-            Console.WriteLine("prix de la nuit " + amount);
+            //Console.WriteLine("prix de la nuit " + amount);
 
             nbnight = (checkout - checkin).TotalDays;
 
-            Console.WriteLine("nb de nuit " + nbnight);
+            //Console.WriteLine("nb de nuit " + nbnight);
 
             if (nbnight > 1)
             {
                 amount2 = (amount * nbnight);
-                Console.WriteLine("prix des nuit " + amount);
+                //Console.WriteLine("prix des nuit " + amount);
                 return BookingDB.AddBooking(booking, amount2);
             }
             else

@@ -203,9 +203,9 @@ namespace DAL
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
 
-                    string query = "UPDATE Bookings SET CheckIn=@CheckIn, CheckOut=@CheckOut WHERE Reference=@id";
+                    string query = "UPDATE Bookings SET CheckIn=@CheckIn, CheckOut=@CheckOut WHERE Reference=@Reference";
                     SqlCommand cmd = new SqlCommand(query, cn);
-                    cmd.Parameters.AddWithValue("@id", Reference);
+                    cmd.Parameters.AddWithValue("@Reference", Reference);
                     cmd.Parameters.AddWithValue("@CheckIn", CheckIn);
                     cmd.Parameters.AddWithValue("@CheckOut", CheckOut);
 
