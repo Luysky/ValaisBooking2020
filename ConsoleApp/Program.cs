@@ -27,7 +27,7 @@ namespace ConsoleApp
             //Afficher toutes les réservations
             //bookingManager.GetEveryBookings();
 
-            var checkIn = new DateTime(2020, 10, 10);
+            var checkIn = new DateTime(2020, 11, 10);
             var checkOut = new DateTime(2020, 11, 15);
 
             //Afficher la requête search simple
@@ -53,8 +53,10 @@ namespace ConsoleApp
             var checkIn2 = new DateTime(2020, 11, 6);
             var checkOut2 = new DateTime(2020, 11, 8);
 
-            var bookings = new Booking { Reference = DateTime.Now.ToString("yyyymmddhhmmss"), CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Eva", Firstname = "Green", Amount = 300, IdRoom = 7 };
-            //bookingManager.AddBooking(bookings, bookings.Amount);
+
+            var money = bookingManager.CalculatePrice(300, checkIn, checkOut);
+            var bookings = new Booking { Reference = DateTime.Now.ToString("yyyymmddhhmmss"), CheckIn = checkIn2, CheckOut = checkOut2, Lastname = "Eva", Firstname = "Green", Amount = money, IdRoom = 7 };
+            //bookingManager.AddBooking(bookings);
             //bookingManager.GetEveryBookings();
 
             //Supprimer une réservation

@@ -15,7 +15,7 @@ namespace DAL
             Configuration = configuration;
         }
 
-        public Booking AddBooking(Booking bookings, double amount)
+        public Booking AddBooking(Booking bookings)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
