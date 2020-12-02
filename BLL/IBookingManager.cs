@@ -11,7 +11,8 @@ namespace BLL
         IRoomDB RoomDB { get; }
         IHotelDB HotelDB { get; }
         IPictureDB PictureDB { get; }
-        Booking AddBooking(Booking booking, double amount);
+        double CalculatePrice(double amount, DateTime checkIn, DateTime checkOut);
+        Booking AddBooking(Booking booking);
         List<Booking> GetAllReservation();
         List<Booking> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut);
         List<int> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut);
