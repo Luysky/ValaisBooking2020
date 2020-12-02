@@ -7,9 +7,9 @@ namespace BLL
 {
     public class PictureManager : IPictureManager
     {
-        public PictureManager(IConfiguration configuration)
+        public PictureManager(IPictureDB pictureDB)
         {
-            PictureDB = new PictureDB(configuration);
+            PictureDB = pictureDB;
         }
 
         public IPictureDB PictureDB { get; }

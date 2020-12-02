@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BLL;
+using DAL;
 
 namespace ValaisBooking2020
 {
@@ -24,6 +26,15 @@ namespace ValaisBooking2020
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IBookingManager, BookingManager>();
+            services.AddScoped<IBookingDB, BookingDB>();
+            services.AddScoped<IHotelManager, HotelManager>();
+            services.AddScoped<IHotelDB, HotelDB>();
+            services.AddScoped<IPictureManager, PictureManager>();
+            services.AddScoped<IPictureDB, PictureDB>();
+            services.AddScoped<IRoomManager, RoomManager>();
+            services.AddScoped<IRoomDB, RoomDB>();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +56,8 @@ namespace ValaisBooking2020
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

@@ -9,9 +9,9 @@ namespace BLL
     public class RoomManager : IRoomManager
     {
 
-        public RoomManager(IConfiguration configuration)
+        public RoomManager(IRoomDB roomDB)
         {
-            RoomDB = new RoomDB(configuration);
+            RoomDB = roomDB;
         }
 
 

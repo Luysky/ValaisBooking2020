@@ -22,7 +22,7 @@ namespace ConsoleApp
         {
        
             var bookingManager = new BookingManager(Configuration);
-            Booking booking = new Booking();
+            
 
             //Afficher toutes les réservations
             //bookingManager.GetEveryBookings();
@@ -32,7 +32,7 @@ namespace ConsoleApp
             var checkOut = new DateTime(2020, 11, 15);
 
             //Afficher la requête search simple
-            //bookingManager.SearchSimple(bookingManager.GetBookingsWithRoomAndDates(1, checkIn, checkOut), "Martigny");
+            bookingManager.SearchSimple(bookingManager.GetBookingsWithRoomAndDates(1, checkIn, checkOut), "Martigny");
 
 
             //Données nécessaires pour la recherche Advanced

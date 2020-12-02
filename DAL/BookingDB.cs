@@ -64,7 +64,6 @@ namespace DAL
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         
-
                         while (dr.Read())
                         {
 

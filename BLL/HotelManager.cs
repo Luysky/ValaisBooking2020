@@ -9,9 +9,9 @@ namespace BLL
     public class HotelManager : IHotelManager
     {
 
-        public HotelManager(IConfiguration configuration)
+        public HotelManager(IHotelDB hotelDB)
         {
-            HotelDb = new HotelDB(configuration);
+            HotelDb = hotelDB;
         }
 
         public IHotelDB HotelDb { get; }
