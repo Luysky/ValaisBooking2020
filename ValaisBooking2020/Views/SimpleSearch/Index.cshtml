@@ -1,50 +1,41 @@
 ﻿@model ValaisBooking2020.Models.SimpleSearchViewModel
 
 @{
-    ViewBag.Title = "SimpleSearch";
+    ViewData["Title"] = "Index";
 }
 
-<h1>SimpleSearch</h1>
+<h1>Index</h1>
 
+<h4>SimpleSearchViewModel</h4>
+<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="SimpleSearchController" asp-action="Index">
+        <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                @using (Html.BeginForm())
-                {
-                    @Html.ListBoxFor(m => m.SelectedCities, Model.CitiesResult, new { size = 7 })
-                    <br />
-                    <input type="submit" value="Submit" />
-                }
+                <label asp-for="checkIn" class="control-label"></label>
+                <input asp-for="checkIn" class="form-control" />
+                <span asp-validation-for="checkIn" class="text-danger"></span>
             </div>
-
-            <table>
-                <tr>
-                    <th>Check-In</th>
-                    <th>Check-Out</th>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="date" id="check-in" name="trip-start"
-                               value="2020-12-01"
-                               min="2020-12-01" max="2021-12-01" />
-                    </td>
-
-                    <td>
-                        <input type="date" id="check-out" name="trip-start"
-                               value="2020-12-01"
-                               min="2020-12-01" max="2021-12-01" />
-                    </td>
-                </tr>
-            </table>
-
-
-
             <div class="form-group">
-                <br />
-                <input type="submit" value="Choose" class="btn btn-success" />
+                <label asp-for="checkOut" class="control-label"></label>
+                <input asp-for="checkOut" class="form-control" />
+                <span asp-validation-for="checkOut" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
+            @Html.DropDownListFor(m => m.cities, new SelectList(Enum.GetValues(typeof(Location))), "Select Cities");
+
         </form>
     </div>
 </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

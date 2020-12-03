@@ -31,6 +31,5 @@ namespace DTO
             return $"Hotel: {Name} - {Location}";
         }
 
-
     }
 }

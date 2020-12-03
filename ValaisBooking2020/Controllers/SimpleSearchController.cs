@@ -22,9 +22,29 @@ namespace ValaisBooking2020.Controllers
         // GET: SimpleSearchController
         [HttpGet]
         public ActionResult Index()
-        {
-          
-            List<SelectListItem> Cities = new List<SelectListItem>
+        {      
+            
+
+
+            return View();
+
+            /*
+               List<City> ListCities = new List<City>()
+               {
+                   new City(){City_id = 1, City_name = "Sion"},
+                   new City(){City_id = 1, City_name = "Sierre"},
+                   new City(){City_id = 1, City_name = "Martigny"},
+                   new City(){City_id = 1, City_name = "Brig"},
+               };
+
+               ViewBag.Departments = new SelectList(ListCities, "Id", "Name");
+            */
+
+
+
+            /*
+
+            List<SelectListItem> DbCities = new List<SelectListItem>
             {
                 new SelectListItem{Value = "1", Text = "Martigny"},
                 new SelectListItem{Value = "2", Text = "Sierre"},
@@ -32,39 +52,59 @@ namespace ValaisBooking2020.Controllers
                 new SelectListItem{Value = "4", Text = "Brig"},
             };
            
-            foreach(var City in Cities)
+            foreach(var City in DbCities)
             {
                 SelectListItem selectList = new SelectListItem()
                 {
-                    Value = City.Value.ToString()
+
+                    Text = City.Text,
+                    Value = City.Value.ToString(),
+                    Selected = City.Selected
+
                 };
-                Cities.Add(selectList);
+                DbCities.Add(selectList);
             }
             SimpleSearchViewModel simpleSearchViewModel = new SimpleSearchViewModel()
             {
-                CitiesResult = Cities
+                CitiesResult = DbCities
             };
-            return View();
- 
+            return View(simpleSearchViewModel);
+
+            */
+
         }
 
+        /*
         [HttpPost]
-        public string Index(IEnumerable<string> SelectedCities)
+        public string Index(IEnumerable<string> selectedCities)
         {
-            if(SelectedCities == null)
+            
+            
+            if(selectedCities == null)
             {
                 return "No cities selected";
             }
             else
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append("You selected - " + string.Join(",", SelectedCities));
+                sb.Append("You selected - " + string.Join(",", selectedCities));
                 return sb.ToString();
             }
+            
+        }
+        */
+
+        [HttpPost]
+        public ActionResult Index(SimpleSearchViewModel ssvm)
+        {
+
+            //searchxy(ssvm.checkIn)
+
+            return View();
         }
 
-        
-        public ActionResult City(string id, string city)
+
+            public ActionResult City(string id, string city)
         {
             HttpContext.Session.SetString(id, city);
             return City(id, city);
@@ -79,7 +119,7 @@ namespace ValaisBooking2020.Controllers
         // GET: SimpleSearchController/Create
         public ActionResult Choose()
         {
-            return Choose();
+            return RedirectToAction("Index", "Home");
         }
 
 
