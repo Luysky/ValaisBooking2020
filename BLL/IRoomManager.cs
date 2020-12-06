@@ -7,7 +7,7 @@ namespace BLL
 {
     public interface IRoomManager
     {
-        IRoomDB RoomDB { get; }
+        //IRoomDB RoomDB { get; }
         Room UpdatePriceRoom(Room room);
         List<Room> SearchRoomSimple(string location);
         List<int> SearchIdRoomSimple(string location);

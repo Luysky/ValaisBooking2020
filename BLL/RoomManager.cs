@@ -9,13 +9,12 @@ namespace BLL
     public class RoomManager : IRoomManager
     {
 
+        private IRoomDB RoomDB { get; }
+
         public RoomManager(IRoomDB roomDB)
         {
             RoomDB = roomDB;
         }
-
-
-        public IRoomDB RoomDB { get; }
 
         public Room UpdatePriceRoom(Room room)
         {

@@ -10,7 +10,7 @@ namespace DAL
         IConfiguration Configuration { get; }
         Booking AddBooking(Booking bookings);
         List<Booking> GetAllReservation();
-        List<Booking> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut);
+        List<Booking> GetAllReservationDate(DateTime CheckIn, DateTime CheckOut);
         List<Booking> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut);
         Booking UpdateBooking(string Reference, DateTime CheckIn, DateTime CheckOut);
         int DeleteBooking(int idBooking);

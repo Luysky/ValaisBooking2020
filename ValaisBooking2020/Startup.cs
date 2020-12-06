@@ -25,7 +25,11 @@ namespace ValaisBooking2020
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddSessionStateTempDataProvider();
+            services.AddRazorPages()
+                .AddSessionStateTempDataProvider();
+
             services.AddScoped<IBookingManager, BookingManager>();
             services.AddScoped<IBookingDB, BookingDB>();
             services.AddScoped<IHotelManager, HotelManager>();

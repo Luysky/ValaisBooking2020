@@ -58,9 +58,9 @@ namespace BLL
         {
             return BookingDB.GetAllReservation();
         }
-        public List<Booking> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut)
+        public List<Booking> GetAllReservationDate(DateTime CheckIn, DateTime CheckOut)
         {
-            return BookingDB.GetAllReservationDate(IdRoom, CheckIn, CheckOut);
+            return BookingDB.GetAllReservationDate(CheckIn, CheckOut);
         }
 
         public List<int> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut)
@@ -89,59 +89,61 @@ namespace BLL
         }
 
 
-        public List<int> GetBookingsWithRoomAndDates(int idRoom, DateTime checkIn, DateTime checkOut)
-        {
-            //Afficher toutes les réservations sur une chambre pour une période donnée
-            //Permet de vérifier si la chambre est réservable ou pas. 
-
-            var bookingsResult = BookingDB.GetAllReservationDate(idRoom, checkIn, checkOut);
-
-            List<int> listRoomBooked = new List<int>();
-            foreach (var booking in bookingsResult)
-            {
-                listRoomBooked.Add(booking.IdRoom);
-            }
-            return listRoomBooked;
-        }
- 
-        /*
         public List<int> GetBookingsWithRoomAndDates(DateTime checkIn, DateTime checkOut)
         {
             //Afficher toutes les réservations sur une chambre pour une période donnée
             //Permet de vérifier si la chambre est réservable ou pas. 
-
-            var bookingsResult = BookingDB.GetAllReservationDateSimple(checkIn, checkOut);
+            List<Booking> bookingsResult = new List<Booking>();
+            bookingsResult = BookingDB.GetAllReservationDate(checkIn, checkOut);
 
             List<int> listRoomBooked = new List<int>();
-            foreach (var booking in bookingsResult)
+
+            if (bookingsResult == null)
             {
-                listRoomBooked.Add(booking.IdRoom);
+                return listRoomBooked;
             }
-            return listRoomBooked;
+            else
+            {
+                foreach (var booking in bookingsResult)
+                {
+                    listRoomBooked.Add(booking.IdRoom);
+                }
+                return listRoomBooked;
+            }
         }
-        */
+ 
 
-
-        public void SearchSimple(List<int> listRoomBooked, string city)
+        public List<Room> SearchSimple(List<int> listRoomBooked, string city)
         {
             //Methode void pour l instant a modifier ulterieurement pour retourner une liste avec liste room, liste hotel,liste picture
 
-            Console.WriteLine("--Search simple--");
+            //Console.WriteLine("--Search simple--");
             var roomResult = RoomDB.SearchRoomSimple(city);
             int sizeBooked = listRoomBooked.Count;
             List<Room> listFinal = new List<Room>();
-
-            for (int i = 0; i < sizeBooked; i++)
+            
+            if(listRoomBooked.Count != 0)
             {
-                foreach (var room in roomResult)
+                for (int i = 0; i < sizeBooked; i++)
                 {
-                    int bookedRoom = listRoomBooked[i];
-                    if (room.IdRoom != bookedRoom)
+                    foreach (var room in roomResult)
                     {
-                        listFinal.Add(room);
+                        int bookedRoom = listRoomBooked[i];
+                        if (room.IdRoom != bookedRoom)
+                        {
+                            listFinal.Add(room);
+                        }
                     }
                 }
+                return listFinal;
             }
+            else
+            {
+                return roomResult;
+            }
+
+            
+            /*
             foreach (var room in listFinal)
             {
 
@@ -165,7 +167,7 @@ namespace BLL
                     Console.WriteLine();
                 }
             }
-
+            */
         }
 
         public void SearchAdvanced(List<Object> listCriteriaRoom, List<Object> listCriteriaHotel,DateTime checkIn,DateTime checkOut)

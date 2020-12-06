@@ -2,24 +2,67 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ValaisBooking2020.Models;
 
 namespace ValaisBooking2020.Controllers
 {
+
+
     public class RoomController : Controller
     {
-        // GET: RoomController
-        public ActionResult Index()
-        {
 
-            return View();
+        private IRoomManager RoomManager { get; }
+        public IBookingManager BookingManager { get; }
+
+        [TempData]
+        public DateTime dateIn { get; set; }
+        public DateTime dateOut { get; set; }
+
+        public RoomController(IRoomManager roomManager, IBookingManager bookingManager)
+        {
+            RoomManager = roomManager;
+            BookingManager = bookingManager;
         }
 
-        // GET: RoomController/Details/5
-        public ActionResult Details(int id)
+        // GET: RoomController
+        [HttpGet]
+        public ActionResult Index(SimpleSearchViewModel ssvm)
         {
-            return View();
+            dateIn = ssvm.checkIn;
+            dateOut = ssvm.checkOut;
+
+            //HttpContext.Session.SetString("location", ssvm.cities.ToString());
+
+            //var room = RoomManager.SearchRoomSimple(ssvm.cities.ToString());
+            var list =  BookingManager.GetBookingsWithRoomAndDates(ssvm.checkIn, ssvm.checkOut);
+            var roomlist = BookingManager.SearchSimple(list, ssvm.cities.ToString());
+
+
+            return View(roomlist);
+        }
+
+
+        // GET: RoomController/Details/5
+        [HttpPost]
+        public ActionResult Index(int id)
+        {
+            DateTime checkin = (DateTime)TempData.Peek("dateIn");
+            DateTime checkout = (DateTime)TempData.Peek("dateOut");
+            String city = HttpContext.Session.GetString("location");
+
+            //BookingManager.GetBookingsWithRoomAndDates(id, checkin, checkout);
+            var roomlist = BookingManager.SearchSimple(BookingManager.GetBookingsWithRoomAndDates(checkin, checkout), city);
+
+            return RedirectToAction(nameof(Details), roomlist);
+        }
+
+        [HttpGet]
+        public ActionResult Details(List<DTO.Room> roomlist)
+        {
+            return View(roomlist);
         }
 
         // GET: RoomController/Create

@@ -93,7 +93,7 @@ namespace DAL
             return results;
         }
 
-        public List<Booking> GetAllReservationDate(int IdRoom, DateTime CheckIn, DateTime CheckOut)
+        public List<Booking> GetAllReservationDate(DateTime CheckIn, DateTime CheckOut)
         {
             List<Booking> results = null;
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -102,9 +102,8 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT * FROM Bookings WHERE IdRoom = @IdRoom AND(CheckIn BETWEEN @CheckIn AND @CheckOut)";
+                    string query = "SELECT * FROM Bookings WHERE CheckIn BETWEEN @CheckIn AND @CheckOut";
                     SqlCommand cmd = new SqlCommand(query, cn);
-                    cmd.Parameters.AddWithValue("@IdRoom", IdRoom);
                     cmd.Parameters.AddWithValue("@CheckIn", CheckIn);
                     cmd.Parameters.AddWithValue("@CheckOut", CheckOut);
 
