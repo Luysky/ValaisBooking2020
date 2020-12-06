@@ -26,79 +26,17 @@ namespace ValaisBooking2020.Controllers
             
 
 
-            return View();
-
-            /*
-               List<City> ListCities = new List<City>()
-               {
-                   new City(){City_id = 1, City_name = "Sion"},
-                   new City(){City_id = 1, City_name = "Sierre"},
-                   new City(){City_id = 1, City_name = "Martigny"},
-                   new City(){City_id = 1, City_name = "Brig"},
-               };
-
-               ViewBag.Departments = new SelectList(ListCities, "Id", "Name");
-            */
-
-
-
-            /*
-
-            List<SelectListItem> DbCities = new List<SelectListItem>
-            {
-                new SelectListItem{Value = "1", Text = "Martigny"},
-                new SelectListItem{Value = "2", Text = "Sierre"},
-                new SelectListItem{Value = "3", Text = "Sion"},
-                new SelectListItem{Value = "4", Text = "Brig"},
-            };
-           
-            foreach(var City in DbCities)
-            {
-                SelectListItem selectList = new SelectListItem()
-                {
-
-                    Text = City.Text,
-                    Value = City.Value.ToString(),
-                    Selected = City.Selected
-
-                };
-                DbCities.Add(selectList);
-            }
-            SimpleSearchViewModel simpleSearchViewModel = new SimpleSearchViewModel()
-            {
-                CitiesResult = DbCities
-            };
-            return View(simpleSearchViewModel);
-
-            */
-
+            return View();       
         }
 
-        /*
-        [HttpPost]
-        public string Index(IEnumerable<string> selectedCities)
-        {
-            
-            
-            if(selectedCities == null)
-            {
-                return "No cities selected";
-            }
-            else
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("You selected - " + string.Join(",", selectedCities));
-                return sb.ToString();
-            }
-            
-        }
-        */
-
+  
         [HttpPost]
         public ActionResult Index(SimpleSearchViewModel ssvm)
         {
 
             //searchxy(ssvm.checkIn)
+
+            //HELLO
 
             return View();
         }
