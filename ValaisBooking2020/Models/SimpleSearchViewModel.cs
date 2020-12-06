@@ -23,7 +23,6 @@ namespace ValaisBooking2020.Models
     public enum Location
     {
         Martigny,
-        Sierre,
         Sion,
         Brig
     }

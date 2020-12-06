@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DTO.Room>
+﻿@model IEnumerable<DTO.Hotel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,22 +13,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Number)
+                @Html.DisplayNameFor(model => model.IdHotel)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                @Html.DisplayNameFor(model => model.Location)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasTV)
+                @Html.DisplayNameFor(model => model.HasWifi)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasHairDryer)
+                @Html.DisplayNameFor(model => model.HasParking)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Website)
             </th>
             <th></th>
         </tr>
@@ -37,26 +46,34 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Number)
+                @Html.DisplayFor(modelItem => item.IdHotel)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type)
+                @Html.DisplayFor(modelItem => item.Location)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HasTV)
+                @Html.DisplayFor(modelItem => item.HasWifi)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HasHairDryer)
+                @Html.DisplayFor(modelItem => item.HasParking)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id=item.Number }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Website)
+            </td>
+            <td>
+                @Html.ActionLink("adfasf", "Details", new { id=item.IdHotel }) |
             </td>
         </tr>
 }
