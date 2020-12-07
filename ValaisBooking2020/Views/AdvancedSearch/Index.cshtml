@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.DropDownListFor(m => m.cities, new SelectList(Enum.GetValues(typeof(Cities))), "Select Cities")
             <div class="form-group">
                 <label asp-for="checkIn" class="control-label"></label>
                 <input asp-for="checkIn" class="form-control" />
@@ -23,15 +24,16 @@
                 <span asp-validation-for="checkOut" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="cities" class="control-label"></label>
-                <input asp-for="cities" class="form-control" />
-                <span asp-validation-for="cities" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <label asp-for="Category">Catégorie:</label>
+                <select class="form-control" id="Category">
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="HasWifi" /> @Html.DisplayNameFor(model => model.HasWifi)
@@ -53,3 +55,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

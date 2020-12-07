@@ -2,13 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ValaisBooking2020.Models;
 
 namespace ValaisBooking2020.Controllers
 {
     public class AdvancedSearchController : Controller
     {
+
+        private IRoomManager RoomManager { get; }
+
+        public AdvancedSearchController(IRoomManager roomManager)
+        {
+            RoomManager = roomManager;
+        }
+
+
         // GET: AdvancedSearchController
         [HttpGet]
         public ActionResult Index()
@@ -16,11 +27,13 @@ namespace ValaisBooking2020.Controllers
             return View();
         }
 
+        /*
         [HttpPost]
         public ActionResult Index(AdvancedSearchController asvm)
         {
             return RedirectToAction("Index", "Room", asvm);
         }
+        */
 
         // GET: AdvancedSearchController/Details/5
         public ActionResult Details(int id)
