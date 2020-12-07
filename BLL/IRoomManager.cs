@@ -11,6 +11,7 @@ namespace BLL
         Room UpdatePriceRoom(Room room);
         List<Room> SearchRoomSimple(string location);
         List<int> SearchIdRoomSimple(string location);
+        Room SearchRoomById(int id);
         List<Room> SearchEveryRooms();
         List<Room> GetRoomsMultiQueries(List<Object> listCriteria, List<Room> listRooms);
     }

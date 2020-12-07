@@ -31,6 +31,11 @@ namespace BLL
             return RoomDB.SearchIdRoomSimple(location);
         }
 
+        public Room SearchRoomById(int id)
+        {
+            return RoomDB.SearchRoomById(id);
+        }
+
         public List<Room> SearchEveryRooms()
         {
             return RoomDB.SearchEveryRooms();

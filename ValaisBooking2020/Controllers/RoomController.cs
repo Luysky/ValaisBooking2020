@@ -17,6 +17,7 @@ namespace ValaisBooking2020.Controllers
         private IRoomManager RoomManager { get; }
         private IBookingManager BookingManager { get; }
         private IHotelManager HotelManager { get; }
+        private IPictureManager PictureManager { get; }
         
 
         [TempData]
@@ -25,11 +26,12 @@ namespace ValaisBooking2020.Controllers
         private List<DTO.Room> bookings { get; set; }
         private string location { get; set; }
 
-        public RoomController(IRoomManager roomManager, IBookingManager bookingManager, IHotelManager hotelManager)
+        public RoomController(IRoomManager roomManager, IBookingManager bookingManager, IHotelManager hotelManager, IPictureManager pictureManager)
         {
             RoomManager = roomManager;
             BookingManager = bookingManager;
             HotelManager = hotelManager;
+            PictureManager = pictureManager;
         }
 
         // GET: RoomController
@@ -39,11 +41,12 @@ namespace ValaisBooking2020.Controllers
             dateIn = ssvm.checkIn;
             dateOut = ssvm.checkOut;
 
+            string firstdate = ssvm.checkIn.ToString();
+            HttpContext.Session.SetString("firstdate", firstdate);
+
             string seconddate = ssvm.checkOut.ToString();
             HttpContext.Session.SetString("seconddate", seconddate);
-            //HttpContext.Session.SetString("location", ssvm.cities.ToString());
 
-            //var room = RoomManager.SearchRoomSimple(ssvm.cities.ToString());
             List<Object> criteria = new List<object>();
             string city = ssvm.cities.ToString();
             criteria.Add(city);
@@ -69,44 +72,14 @@ namespace ValaisBooking2020.Controllers
 
 
         // GET: RoomController/Details/5
-        [HttpPost]
-        public ActionResult Room(int id)
-        {
-            /*
-            var date1 = (DateTime) TempData.Peek("dateIn");
-            var date2 = (DateTime) TempData.Peek("dateOut");
-            var location = (string) TempData.Peek("location");
-
-            var list = BookingManager.GetBookingsWithRoomAndDates(date1, date2);
-            var roomlist = BookingManager.SearchSimple(list, location);
-
-            List<DTO.Room> roomlistavailable = new List<DTO.Room>();
-
-            foreach (var room in roomlist)
-            {
-                if (room.IdHotel == id)
-                {
-                    roomlistavailable.Add(room);
-                }
-            }
-
-            return RedirectToAction(nameof(Details), roomlistavailable);
-            */
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Details(int id)
         {
-            //var hotelResult = HotelManager.SearchListHotelById(room.IdHotel);
-
-                //DateTime date1 = new DateTime();
-                //DateTime date2 = new DateTime();
                 string location = HttpContext.Session.GetString("city");
 
-                var date1 = TempData.Peek("dateIn");
+                var date1 = HttpContext.Session.GetString("firstdate");
                 var date2 = HttpContext.Session.GetString("seconddate");
-                DateTime checkIn = (DateTime)date1;
+                DateTime checkIn = DateTime.Parse(date1);
                 DateTime checkOut = DateTime.Parse(date2);
 
                 var list = BookingManager.GetBookingsWithRoomAndDates(checkIn, checkOut);
@@ -122,14 +95,25 @@ namespace ValaisBooking2020.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Details), roomlistavailable);
+                return View(roomlistavailable);
             
         }
 
         // GET: RoomController/Create
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult Picture(int id)
         {
-            return View();
+            DTO.Room room = RoomManager.SearchRoomById(id);
+            List<DTO.Picture> picture = PictureManager.SearchListPicture(id);
+
+            var result = new RoomPictureViewModel
+            {
+                Description = room.Description,
+                Price = room.Price,
+                Pictures = picture
+            };
+           
+            return View(result);
         }
 
         // POST: RoomController/Create

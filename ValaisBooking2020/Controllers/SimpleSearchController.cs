@@ -40,9 +40,6 @@ namespace ValaisBooking2020.Controllers
         [HttpPost]
         public ActionResult Index(SimpleSearchViewModel ssvm)
         {
-            //searchxy(ssvm.checkIn)
-            //var room = RoomManager.SearchRoomSimple(ssvm.cities.ToString());
-
             return RedirectToAction("Index", "Room", ssvm);
         }
 

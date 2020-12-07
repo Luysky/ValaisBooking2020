@@ -132,6 +132,52 @@ namespace DAL
             return results;
         }
 
+        public Room SearchRoomById(int id)
+        {
+            Room result = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM Room WHERE IdRoom = @id";
+
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+
+                        while (dr.Read())
+                        {
+                 
+                            Room room = new Room();
+
+                            room.IdRoom = (int)dr["IdRoom"];
+                            room.Number = (int)dr["Number"];
+                            room.Description = (string)dr["Description"];
+                            room.Type = (int)dr["Type"];
+                            room.Price = (double)(decimal)dr["Price"];
+                            room.HasTV = (bool)dr["HasTV"];
+                            room.HasHairDryer = (bool)dr["HasHairDryer"];
+                            room.IdHotel = (int)dr["IdHotel"];
+
+                            result = room;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return result;
+        }
         public List<Room> SearchEveryRooms()
         {
             List<Room> results = null;

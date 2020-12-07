@@ -1,0 +1,51 @@
+﻿@model ValaisBooking2020.Models.RoomPictureViewModel
+
+@{
+    ViewData["Title"] = "Picture";
+}
+
+<h1>Picture</h1>
+
+<div>
+    <h4>RoomPictureViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Book", "Book", new { id = Model.IdRoom })
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pictures)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Pictures)
+        {
+            <tr>
+                <th>
+                    <img src="@Url.Content(item.Url)" alt="Image"/>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

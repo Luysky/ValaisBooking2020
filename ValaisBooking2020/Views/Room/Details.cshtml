@@ -55,9 +55,8 @@
                 @Html.DisplayFor(modelItem => item.HasHairDryer)
             </td>
             <td>
+                @Html.ActionLink("Picture", "Picture", new { id=item.IdRoom }) 
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }
