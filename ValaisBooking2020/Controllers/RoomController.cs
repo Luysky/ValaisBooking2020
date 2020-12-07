@@ -106,10 +106,17 @@ namespace ValaisBooking2020.Controllers
             DTO.Room room = RoomManager.SearchRoomById(id);
             List<DTO.Picture> picture = PictureManager.SearchListPicture(id);
 
+            var date1 = HttpContext.Session.GetString("firstdate");
+            var date2 = HttpContext.Session.GetString("seconddate");
+            DateTime checkIn = DateTime.Parse(date1);
+            DateTime checkOut = DateTime.Parse(date2);
+
+            double price = BookingManager.CalculatePrice(room.Price, checkIn, checkOut);
+
             var result = new RoomPictureViewModel
             {
                 Description = room.Description,
-                Price = room.Price,
+                Price = price,
                 Pictures = picture
             };
            
