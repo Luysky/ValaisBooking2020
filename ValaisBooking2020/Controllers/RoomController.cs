@@ -41,10 +41,15 @@ namespace ValaisBooking2020.Controllers
             dateIn = ssvm.checkIn;
             dateOut = ssvm.checkOut;
 
-            string firstdate = ssvm.checkIn.ToString();
+            
+            DateTime firstDateDt = ssvm.checkIn;
+            firstDateDt = new DateTime(firstDateDt.Year, firstDateDt.Month, firstDateDt.Day, 0, 0, 0);
+            string firstdate = firstDateDt.ToString();
             HttpContext.Session.SetString("firstdate", firstdate);
 
-            string seconddate = ssvm.checkOut.ToString();
+            DateTime secondDateDt = ssvm.checkOut;
+            secondDateDt = new DateTime(secondDateDt.Year, secondDateDt.Month, secondDateDt.Day, 0, 0, 0);
+            string seconddate = secondDateDt.ToString();
             HttpContext.Session.SetString("seconddate", seconddate);
 
             List<Object> criteria = new List<object>();
@@ -62,10 +67,12 @@ namespace ValaisBooking2020.Controllers
             var hotel = HotelManager.GetHotelsMultiQueries(criteria, resulthotel);
 
             //recherche de toutes les rooms non réservé 
-            var list =  BookingManager.GetBookingsWithRoomAndDates(ssvm.checkIn, ssvm.checkOut);
-            var roomlist = BookingManager.SearchSimple(list, ssvm.cities.ToString());
+            //var list =  BookingManager.GetBookingsWithRoomAndDates(ssvm.checkIn, ssvm.checkOut);
+            //var roomlist = BookingManager.SearchSimple(list, ssvm.cities.ToString());
 
-            bookings = roomlist;
+            
+
+            //bookings = roomlist;
 
             return View(hotel);
         }
@@ -83,7 +90,7 @@ namespace ValaisBooking2020.Controllers
                 DateTime checkOut = DateTime.Parse(date2);
 
                 var list = BookingManager.GetBookingsWithRoomAndDates(checkIn, checkOut);
-                var roomlist = BookingManager.SearchSimple(list, location);
+                var roomlist = BookingManager.SearchSimple(list, location, id);
 
                 List<DTO.Room> roomlistavailable = new List<DTO.Room>();
 

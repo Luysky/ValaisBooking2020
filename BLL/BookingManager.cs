@@ -94,7 +94,14 @@ namespace BLL
             //Afficher toutes les réservations sur une chambre pour une période donnée
             //Permet de vérifier si la chambre est réservable ou pas. 
             List<Booking> bookingsResult = new List<Booking>();
-            bookingsResult = BookingDB.GetAllReservationDate(checkIn, checkOut);
+
+            DateTime firstDateDt = checkIn;
+            firstDateDt = new DateTime(firstDateDt.Year, firstDateDt.Month, firstDateDt.Day, 0, 0, 0);
+
+            DateTime secondDateDt = checkOut;
+            secondDateDt = new DateTime(secondDateDt.Year, secondDateDt.Month, secondDateDt.Day, 0, 0, 0);
+
+            bookingsResult = BookingDB.GetAllReservationDate(firstDateDt, secondDateDt);
 
             List<int> listRoomBooked = new List<int>();
 
@@ -113,29 +120,93 @@ namespace BLL
         }
  
 
-        public List<Room> SearchSimple(List<int> listRoomBooked, string city)
+        public List<Room> SearchSimple(List<int> listRoomBooked, string city, int id)
         {
             //Methode void pour l instant a modifier ulterieurement pour retourner une liste avec liste room, liste hotel,liste picture
 
             //Console.WriteLine("--Search simple--");
-            var roomResult = RoomDB.SearchRoomSimple(city);
+            var roomResult = RoomDB.SearchRoomSimple(city, id);
             int sizeBooked = listRoomBooked.Count;
             List<Room> listFinal = new List<Room>();
             
+
             if(listRoomBooked.Count != 0)
             {
+                /*
                 for (int i = 0; i < sizeBooked; i++)
                 {
                     foreach (var room in roomResult)
                     {
                         int bookedRoom = listRoomBooked[i];
-                        if (room.IdRoom != bookedRoom)
+                        if (bookedRoom != room.IdRoom)
                         {
                             listFinal.Add(room);
                         }
                     }
                 }
-                return listFinal;
+                */
+                List<Room> listRoomB = new List<Room>();
+                Room roomValue = new Room();
+
+                foreach(var index in listRoomBooked)
+                {
+                    roomValue = RoomManager.SearchRoomById(index);
+                    listRoomB.Add(roomValue);
+                }
+
+                List<Room> superFinal = new List<Room>();
+                superFinal = roomResult;
+
+                foreach (var room in superFinal)
+                {
+                    foreach (var room1 in listRoomB)
+                    {
+                        if (room.IdHotel != room1.IdHotel)
+                        {
+                            roomResult.Remove(room1);
+                        }
+                    }
+                }
+
+                /*
+                for(int i = 0; i<roomResult.Count; i++)
+                {
+                    for(int j = 0; j<listRoomB.Count; j++)
+                    {
+                        if((roomResult[i]) != (listRoomB[j]))
+                        {
+                            listFinal.Add(roomResult[i]);
+                        }
+                    }
+                }
+                /*
+                foreach (var room in roomResult)
+                {
+                    for (int i = 0; i < sizeBooked; i++)
+                    {
+                        int bookedRoom = listRoomBooked[i];
+                        if (bookedRoom == room.IdRoom)
+                        {
+                            listFinal.Add(room);
+                        }
+                    }
+                }
+                /*
+                List<Room> superFinal = new List<Room>();
+                superFinal = roomResult;
+                
+                foreach(var room in listFinal)
+                {
+                    foreach(var room1 in superFinal)
+                    {
+                        if(room.IdHotel == room1.IdHotel)
+                        {
+                            roomResult.Remove(room1);
+                        }
+                    }                   
+                }
+                */
+                return roomResult;
             }
             else
             {

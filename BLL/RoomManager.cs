@@ -21,9 +21,9 @@ namespace BLL
             return RoomDB.UpdatePriceRoom(room);
         }
 
-        public List<Room> SearchRoomSimple(string location)
+        public List<Room> SearchRoomSimple(string location, int id)
         {
-            return RoomDB.SearchRoomSimple(location);
+            return RoomDB.SearchRoomSimple(location, id);
         }
 
         public List<int> SearchIdRoomSimple(string location)
@@ -39,6 +39,33 @@ namespace BLL
         public List<Room> SearchEveryRooms()
         {
             return RoomDB.SearchEveryRooms();
+        }
+
+        public List<Room> GetAvailableRooms(List<Room> listRooms, List<int> listIdBooked)
+        {
+            if (listIdBooked.Count == 0)
+            {
+                return listRooms;
+            }
+            else
+            {
+                List<Room> listResults = new List<Room>();
+                var roomResult = RoomDB.SearchEveryRooms();
+                int sizeBooked = listIdBooked.Count;
+
+                for (int i = 0; i < sizeBooked; i++)
+                {
+                    foreach (var room in roomResult)
+                    {
+                        int bookedRoom = listIdBooked[i];
+                        if (room.IdRoom != bookedRoom)
+                        {
+                            listResults.Add(room);
+                        }
+                    }
+                }
+                return listResults;
+            }
         }
 
         public List<Room> GetRoomsMultiQueries(List<Object>listCriteria,List<Room>listRooms)

@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Index">
+        <form asp-controller="RoomAdvanced" asp-action="Index" method="get">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.DropDownListFor(m => m.cities, new SelectList(Enum.GetValues(typeof(Cities))), "Select Cities")
             <div class="form-group">
@@ -23,15 +23,17 @@
                 <input asp-for="checkOut" class="form-control" />
                 <span asp-validation-for="checkOut" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Category">Catégorie:</label>
-                <select class="form-control" id="Category">
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+                <label asp-for="Category" class="control-label">Etoiles</label>
+                <input asp-for="Category" type="number" min="2" max="5" class="form-control" />
                 <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="type" class="control-label">lit simple (1) | lit double (2)</label>
+                <input asp-for="type" type="number" min="1" max="2" class="form-control" />
+                <span asp-validation-for="type" class="text-danger"></span>
             </div>
 
             <div class="form-group form-check">
@@ -42,6 +44,17 @@
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="HasParking" /> @Html.DisplayNameFor(model => model.HasParking)
+                </label>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasTv" /> @Html.DisplayNameFor(model => model.HasTv)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasHairDryer" /> @Html.DisplayNameFor(model => model.HasHairDryer)
                 </label>
             </div>
             <div class="form-group">

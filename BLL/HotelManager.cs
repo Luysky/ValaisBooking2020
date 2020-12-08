@@ -8,10 +8,12 @@ namespace BLL
 {
     public class HotelManager : IHotelManager
     {
+        private IRoomManager RoomManager;
 
-        public HotelManager(IHotelDB hotelDB)
+        public HotelManager(IHotelDB hotelDB, IRoomManager roomManager)
         {
             HotelDb = hotelDB;
+            RoomManager = roomManager;
         }
 
         public IHotelDB HotelDb { get; }
@@ -32,6 +34,66 @@ namespace BLL
         {
             return HotelDb.GetAllHotels();
         }
+
+        public List<int> GetIdRoomFromBookingList(List<Booking> listBooking, DateTime checkin, DateTime checkout)
+        {
+            List<int> result = new List<int>();
+
+            
+            foreach(var booking in listBooking)
+            {
+                if(booking.CheckIn == checkin && booking.CheckOut == checkout)
+                {
+                    result.Add(booking.IdRoom);
+                }
+                
+            }
+            return result;
+        }
+
+        
+        public List<int> GetHotelFromRoomId(List<int> listId)
+        {
+            var listEveryRoom = RoomManager.SearchEveryRooms();
+            List<int> result = new List<int>();
+
+            foreach(var room in listEveryRoom)
+            {
+                for(int i = 0; i<listId.Count; i++)
+                {
+                    if(room.IdRoom == listId[i])
+                    {
+                        result.Add(room.IdHotel);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public double GetExtraPrice(double price, List<int> listId, List<Hotel> listHotel)
+        {
+            double finalPrice = price;
+            int cpt = 0;
+            double majoration = 0.0;
+            
+            foreach (var hotel in listHotel)
+            {
+                for (int i = 0; i < listId.Count; i++)
+                {
+                    if (hotel.IdHotel == listId[i])
+                    {
+                        cpt++;
+                    }
+                }
+            }
+            if(cpt >= 2)
+            {
+                majoration = (price * 20)/ 100;
+                finalPrice += majoration;
+            }
+            return finalPrice;
+        }
+        
 
         public List<Hotel> GetHotelsMultiQueries(List<Object> listCriteria, List<Hotel> listHotels)
         {
@@ -75,7 +137,7 @@ namespace BLL
                 {
                     foreach (var hotel in listResult)
                     {
-                        if (!hotel.Category.Equals(categoryV))
+                        if (hotel.Category.Equals(categoryV))
                         {
                             listResultTemp.Add(hotel);
                         }

@@ -8,7 +8,7 @@ namespace ValaisBooking2020.Models
 {
     public class SimpleSearchViewModel
     {
-
+        
         public DateTime checkIn {get ;set;}
         public DateTime checkOut { get; set; }
         public Location cities { get; set; }

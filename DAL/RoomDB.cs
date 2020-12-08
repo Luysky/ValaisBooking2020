@@ -43,7 +43,7 @@ namespace DAL
             return room;
         }
 
-        public List<Room> SearchRoomSimple(string location)
+        public List<Room> SearchRoomSimple(string location, int id)
         {
             List<Room> results = null;
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -52,10 +52,12 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT * FROM Room r INNER JOIN Hotel h ON r.IdHotel = h.IdHotel WHERE h.Location = @Location";
+                    string query = "SELECT * FROM Room r INNER JOIN Hotel h ON r.IdHotel = h.IdHotel WHERE h.Location = @Location AND h.IdHotel = @id";
 
                     SqlCommand cmd = new SqlCommand(query, cn);
                     cmd.Parameters.AddWithValue("@Location", location);
+                    cmd.Parameters.AddWithValue("@id", id);
+
 
                     cn.Open();
 

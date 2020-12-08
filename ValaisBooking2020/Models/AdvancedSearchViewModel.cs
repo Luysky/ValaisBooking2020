@@ -13,6 +13,9 @@ namespace ValaisBooking2020.Models
         public int Category { get; set; }
         public bool HasWifi { get; set; }
         public bool HasParking { get; set; }
+        public int type { get; set; }
+        public bool HasTv { get; set; }
+        public bool HasHairDryer { get; set; }
     }
     public enum Cities
     {

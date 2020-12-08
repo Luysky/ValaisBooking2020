@@ -27,13 +27,13 @@ namespace ValaisBooking2020.Controllers
             return View();
         }
 
-        /*
+        
         [HttpPost]
         public ActionResult Index(AdvancedSearchController asvm)
         {
-            return RedirectToAction("Index", "Room", asvm);
+            return RedirectToAction("Index", "RoomAdvanced", asvm);
         }
-        */
+        
 
         // GET: AdvancedSearchController/Details/5
         public ActionResult Details(int id)
