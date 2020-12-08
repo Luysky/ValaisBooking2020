@@ -132,19 +132,7 @@ namespace BLL
 
             if(listRoomBooked.Count != 0)
             {
-                /*
-                for (int i = 0; i < sizeBooked; i++)
-                {
-                    foreach (var room in roomResult)
-                    {
-                        int bookedRoom = listRoomBooked[i];
-                        if (bookedRoom != room.IdRoom)
-                        {
-                            listFinal.Add(room);
-                        }
-                    }
-                }
-                */
+                
                 List<Room> listRoomB = new List<Room>();
                 Room roomValue = new Room();
 
@@ -154,58 +142,26 @@ namespace BLL
                     listRoomB.Add(roomValue);
                 }
 
-                List<Room> superFinal = new List<Room>();
-                superFinal = roomResult;
-
-                foreach (var room in superFinal)
-                {
-                    foreach (var room1 in listRoomB)
-                    {
-                        if (room.IdHotel != room1.IdHotel)
-                        {
-                            roomResult.Remove(room1);
-                        }
-                    }
-                }
-
-                /*
-                for(int i = 0; i<roomResult.Count; i++)
-                {
-                    for(int j = 0; j<listRoomB.Count; j++)
-                    {
-                        if((roomResult[i]) != (listRoomB[j]))
-                        {
-                            listFinal.Add(roomResult[i]);
-                        }
-                    }
-                }
-                /*
-                foreach (var room in roomResult)
-                {
-                    for (int i = 0; i < sizeBooked; i++)
-                    {
-                        int bookedRoom = listRoomBooked[i];
-                        if (bookedRoom == room.IdRoom)
-                        {
-                            listFinal.Add(room);
-                        }
-                    }
-                }
-                /*
-                List<Room> superFinal = new List<Room>();
-                superFinal = roomResult;
                 
-                foreach(var room in listFinal)
+                List<Room> toDelete = new List<Room>();
+
+
+                foreach (var room in listRoomB)
                 {
-                    foreach(var room1 in superFinal)
+                    foreach (var room1 in roomResult)
                     {
-                        if(room.IdHotel == room1.IdHotel)
+                        if (room.IdRoom == room1.IdRoom)
                         {
-                            roomResult.Remove(room1);
+                            toDelete.Add(room1);
                         }
-                    }                   
+                    }
                 }
-                */
+
+                foreach (var r in toDelete) {
+                    roomResult.Remove(r);
+                }
+
+             
                 return roomResult;
             }
             else
