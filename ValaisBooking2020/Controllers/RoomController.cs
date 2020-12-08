@@ -136,6 +136,11 @@ namespace ValaisBooking2020.Controllers
 
             //majoration du prix par rapport au total des bookings
             double finalPrice = HotelManager.GetExtraPrice(price, totalRooms, totalAvailableRooms);
+            string bookingPrice = finalPrice.ToString();
+            HttpContext.Session.SetString("bookingPrice", bookingPrice);
+
+            int idRoom = room.IdRoom;
+            HttpContext.Session.SetInt32("idRoom", idRoom);
 
             var result = new RoomPictureViewModel
             {
