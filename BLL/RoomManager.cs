@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DTO;
+
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -49,22 +50,36 @@ namespace BLL
             }
             else
             {
-                List<Room> listResults = new List<Room>();
-                var roomResult = RoomDB.SearchEveryRooms();
-                int sizeBooked = listIdBooked.Count;
+                List<Room> listRoomB = new List<Room>();
+                Room roomValue = new Room();
 
-                for (int i = 0; i < sizeBooked; i++)
+                foreach (var index in listIdBooked)
                 {
-                    foreach (var room in roomResult)
+                    roomValue = SearchRoomById(index);
+                    listRoomB.Add(roomValue);
+                }
+
+                List<Room> listResults = new List<Room>();
+                List<Room> toDelete = new List<Room>();
+                var roomResult = RoomDB.SearchEveryRooms();
+
+                foreach(var room in listRoomB)
+                {
+                    foreach(var room1 in roomResult)
                     {
-                        int bookedRoom = listIdBooked[i];
-                        if (room.IdRoom != bookedRoom)
+                        if(room.IdRoom == room1.IdRoom)
                         {
-                            listResults.Add(room);
+                            toDelete.Add(room1);
                         }
                     }
                 }
-                return listResults;
+
+                foreach (var r in toDelete)
+                {
+                    roomResult.Remove(r);
+                }
+
+                return roomResult;
             }
         }
 

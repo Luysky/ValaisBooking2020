@@ -169,32 +169,7 @@ namespace BLL
                 return roomResult;
             }
 
-            
-            /*
-            foreach (var room in listFinal)
-            {
-
-                Console.WriteLine(room.ShortInfo());
-                Console.WriteLine();
-                var hotelResult = HotelDB.SearchListHotelById(room.IdHotel);
-                foreach (var hotel in hotelResult)
-                {
-                    Console.WriteLine(hotel.ShortInfo());
-                    Console.WriteLine();
-
-                    var pictureResult = PictureDB.SearchListPicture(room.IdRoom);
-                    Console.WriteLine("Pictures : ");
-                    foreach (var picture in pictureResult)
-                    {
-                        Console.WriteLine(picture.Url);
-                    }
-
-                    Console.WriteLine();
-                    Console.WriteLine("------------------------------");
-                    Console.WriteLine();
-                }
-            }
-            */
+ 
         }
 
         public void SearchAdvanced(List<Object> listCriteriaRoom, List<Object> listCriteriaHotel,DateTime checkIn,DateTime checkOut)
