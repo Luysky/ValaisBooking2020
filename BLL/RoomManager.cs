@@ -17,6 +17,11 @@ namespace BLL
             RoomDB = roomDB;
         }
 
+        public List<Room> GetEveryRoomByIdHotel(int id)
+        {
+            return RoomDB.GetEveryRoomByIdHotel(id);
+        }
+
         public Room UpdatePriceRoom(Room room)
         {
             return RoomDB.UpdatePriceRoom(room);

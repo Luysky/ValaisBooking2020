@@ -70,28 +70,25 @@ namespace BLL
             return result;
         }
 
-        public double GetExtraPrice(double price, List<int> listId, List<Hotel> listHotel)
+        public double GetExtraPrice(double price, int totalRooms, int totalAvailableRooms)
         {
+
             double finalPrice = price;
             int cpt = 0;
             double majoration = 0.0;
-            
-            foreach (var hotel in listHotel)
+
+            double poucentage = (totalAvailableRooms * 100) / totalRooms;
+
+            if (poucentage <= 30)
             {
-                for (int i = 0; i < listId.Count; i++)
-                {
-                    if (hotel.IdHotel == listId[i])
-                    {
-                        cpt++;
-                    }
-                }
-            }
-            if(cpt >= 2)
-            {
-                majoration = (price * 20)/ 100;
+                majoration = (price * 20) / 100;
                 finalPrice += majoration;
+                return finalPrice;
             }
-            return finalPrice;
+            else
+            {
+                return price;
+            }
         }
         
 

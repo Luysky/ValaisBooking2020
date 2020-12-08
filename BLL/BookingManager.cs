@@ -242,23 +242,6 @@ namespace BLL
             return listFinal;
         }
 
-        public void PriceAdaptation(HotelManager hotelManager, RoomManager roomManager, int idRoom, DateTime checkIn, DateTime checkOut)
-        {
-            /*
-            int numberRoom = RoomDB.SearchEveryRooms();
-            int numberBooking = BookingDB.GetAllReservationDate(idRoom, checkIn, checkOut);
-
-            int priceAdaptation = 0;
-
-            (numberBooking / numberRoom) * 100 = priceAdaptation;
-
-            if (priceAdaptation > 70)
-            {
-
-            }
-            */
-        }
-
             //Pouvoir modifier une reservartion
             public Booking UpdateBooking(string Reference, DateTime CheckIn, DateTime CheckOut)
         {

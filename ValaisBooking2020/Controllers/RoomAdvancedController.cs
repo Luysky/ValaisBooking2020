@@ -105,12 +105,12 @@ namespace ValaisBooking2020.Controllers
             var list = BookingManager.GetBookingsWithRoomAndDates(checkIn, checkOut);
 
             //crée un liste de rooms disponible qui correspondent aux critères 
-            var ListRoomAvailable = RoomManager.GetAvailableRooms(roomlist, list);
-            
-            List<DTO.Room> roomlistavailable = new List<DTO.Room>();
+            var listRoomAvailable = RoomManager.GetAvailableRooms(roomlist, list);
+
+            List <DTO.Room> roomlistavailable = new List<DTO.Room>();
 
             //crée une liste de toutes les rooms qui correspondent aux critères et qui sont égale a l'ID de l'hotel choisi
-            foreach(var room in ListRoomAvailable)
+            foreach(var room in listRoomAvailable)
             {
                 if(id != room.IdHotel)
                 {
@@ -121,13 +121,20 @@ namespace ValaisBooking2020.Controllers
                     roomlistavailable.Add(room);
                 }
             }
+
+            int availableRoomsNb = roomlistavailable.Count;
+            HttpContext.Session.SetInt32("availableRoomsNb", availableRoomsNb);
             return View(roomlistavailable);
+
         }
 
         // GET: RoomAdvancedController/Create
         public ActionResult Picture(int id)
         {
+            //récupere toutes les chambres d'un Hotel par rapport l'ID Hotel
             DTO.Room room = RoomManager.SearchRoomById(id);
+
+            //récupere toutes les photos lié à un Id Hotel
             List<DTO.Picture> picture = PictureManager.SearchListPicture(id);
 
             var date1 = HttpContext.Session.GetString("firstdate");
@@ -135,11 +142,22 @@ namespace ValaisBooking2020.Controllers
             DateTime checkIn = DateTime.Parse(date1);
             DateTime checkOut = DateTime.Parse(date2);
 
+            //reprend les informations de la list roomlistavailable
+            //pour trouver le nombre de chambres encore disponible
+            var availableRoomsNb = HttpContext.Session.GetInt32("availableRoomsNb");
+            int totalAvailableRooms = (int)availableRoomsNb;
+
+            //calclul du prix par rapport au nombre de nuits
             double price = BookingManager.CalculatePrice(room.Price, checkIn, checkOut);
 
-            List<int> getIdRoomFromBookingList = HotelManager.GetIdRoomFromBookingList(BookingManager.GetAllReservation(), checkIn, checkOut);
-            List<int> getHotelFromRoomId = HotelManager.GetHotelFromRoomId(getIdRoomFromBookingList);
-            double finalPrice = HotelManager.GetExtraPrice(price, getHotelFromRoomId, HotelManager.GetHotels());
+            //List<int> listIdRoomFromBookingList = HotelManager.GetIdRoomFromBookingList(BookingManager.GetAllReservation(), checkIn, checkOut);
+            //List<int> listHotelFromRoomId = HotelManager.GetHotelFromRoomId(listIdRoomFromBookingList);
+
+            List<DTO.Room> totalRoom = RoomManager.GetEveryRoomByIdHotel(id);
+            int totalRooms = totalRoom.Count;
+
+            //majoration du prix par rapport au total des bookings
+            double finalPrice = HotelManager.GetExtraPrice(price, totalRooms, totalAvailableRooms);
 
             var result = new RoomPictureViewModel
             {

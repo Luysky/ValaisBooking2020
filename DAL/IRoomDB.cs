@@ -12,6 +12,8 @@ namespace DAL
         Room SearchRoomById(int id);
         List<Room> SearchEveryRooms();
         List<int> SearchIdRoomSimple(string location);
-        
+        List<Room> GetEveryRoomByIdHotel(int id);
+
+
     }
 }

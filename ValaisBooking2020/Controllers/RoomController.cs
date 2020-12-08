@@ -101,8 +101,9 @@ namespace ValaisBooking2020.Controllers
                         roomlistavailable.Add(room);
                     }
                 }
-
-                return View(roomlistavailable);
+            int availableRoomsNb = roomlistavailable.Count;
+            HttpContext.Session.SetInt32("availableRoomsNb", availableRoomsNb);
+            return View(roomlistavailable);
             
         }
 
@@ -110,7 +111,10 @@ namespace ValaisBooking2020.Controllers
         [HttpGet]
         public ActionResult Picture(int id)
         {
+            //récupere toutes les chambres d'un Hotel par rapport l'ID Hotel
             DTO.Room room = RoomManager.SearchRoomById(id);
+
+            //récupere toutes les photos lié à un Id Hotel
             List<DTO.Picture> picture = PictureManager.SearchListPicture(id);
 
             var date1 = HttpContext.Session.GetString("firstdate");
@@ -118,12 +122,25 @@ namespace ValaisBooking2020.Controllers
             DateTime checkIn = DateTime.Parse(date1);
             DateTime checkOut = DateTime.Parse(date2);
 
+            //reprend les informations de la list roomlistavailable
+            //pour trouver le nombre de chambres encore disponible
+            var availableRoomsNb = HttpContext.Session.GetInt32("availableRoomsNb");
+            int totalAvailableRooms = (int)availableRoomsNb;
+
+            //calcul du nombre de room total par rapport a l'ID de l'hotel
+            List<DTO.Room> totalRoom = RoomManager.GetEveryRoomByIdHotel(id);
+            int totalRooms = totalRoom.Count;
+
+            //calclul du prix par rapport au nombre de nuits
             double price = BookingManager.CalculatePrice(room.Price, checkIn, checkOut);
+
+            //majoration du prix par rapport au total des bookings
+            double finalPrice = HotelManager.GetExtraPrice(price, totalRooms, totalAvailableRooms);
 
             var result = new RoomPictureViewModel
             {
                 Description = room.Description,
-                Price = price,
+                Price = finalPrice,
                 Pictures = picture
             };
            
