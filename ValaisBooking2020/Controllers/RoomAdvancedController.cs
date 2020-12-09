@@ -136,6 +136,9 @@ namespace ValaisBooking2020.Controllers
             //récupere toutes les chambres d'un Hotel par rapport l'ID Hotel
             DTO.Room room = RoomManager.SearchRoomById(id);
 
+            int idRoom = room.IdRoom;
+            HttpContext.Session.SetInt32("idRoom", idRoom);
+
             //récupere toutes les photos lié à un Id Hotel
             List<DTO.Picture> picture = PictureManager.SearchListPicture(id);
 
@@ -161,6 +164,8 @@ namespace ValaisBooking2020.Controllers
 
             //majoration du prix par rapport au total des bookings
             double finalPrice = HotelManager.GetExtraPrice(price, totalRooms, totalAvailableRooms);
+            string bookingPrice = finalPrice.ToString();
+            HttpContext.Session.SetString("bookingPrice", bookingPrice);
 
             var result = new RoomPictureViewModel
             {

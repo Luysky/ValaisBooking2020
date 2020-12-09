@@ -14,5 +14,6 @@ namespace DAL
         List<Booking> GetAllReservationDateSimple(DateTime CheckIn, DateTime CheckOut);
         Booking UpdateBooking(string Reference, DateTime CheckIn, DateTime CheckOut);
         int DeleteBooking(int idBooking);
+        List<Booking> GetEveryReservation();
     }
 }

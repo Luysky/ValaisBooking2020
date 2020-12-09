@@ -93,6 +93,52 @@ namespace DAL
             return results;
         }
 
+        public List<Booking> GetEveryReservation()
+        {
+            List<Booking> results = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM Bookings";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+                        while (dr.Read())
+                        {
+
+                            if (results == null)
+                                results = new List<Booking>();
+
+                            Booking bookings = new Booking();
+
+                            bookings.IdBooking = (int)dr["IdBooking"];
+                            bookings.Reference = (string)dr["Reference"];
+                            bookings.CheckIn = (DateTime)dr["CheckIn"];
+                            bookings.CheckOut = (DateTime)dr["CheckOut"];
+                            bookings.Firstname = (string)dr["Firstname"];
+                            bookings.Lastname = (string)dr["Lastname"];
+                            bookings.Amount = (double)(decimal)dr["Amount"];
+                            bookings.IdRoom = (int)dr["IdRoom"];
+
+                            results.Add(bookings);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return results;
+        }
+
         public List<Booking> GetAllReservationDate(DateTime CheckIn, DateTime CheckOut)
         {
             List<Booking> results = null;

@@ -13,8 +13,8 @@ namespace ValaisBooking2020.Controllers
 {
     public class BookingController : Controller
     {
-        
 
+        
         private IBookingManager BookingManager { get; }
 
         /*
@@ -39,7 +39,7 @@ namespace ValaisBooking2020.Controllers
         {           
             BookingConfirmationViewModel bcvm = new BookingConfirmationViewModel();
 
-            bcvm.Reference = DateTime.Now.ToString("yyyymmddhhmmss");
+            bcvm.Reference = DateTime.Now.ToString("yyyymmmddhhmmss");
 
             HttpContext.Session.SetString("reference", bcvm.Reference);
 
@@ -85,11 +85,11 @@ namespace ValaisBooking2020.Controllers
             };
             */
 
-            
-
+           
             BookingEndViewModel bevm = new BookingEndViewModel();
 
-            return RedirectToAction("Confirmation", "Booking",bevm);
+            // return RedirectToAction("Confirmation", "Booking",bevm);
+            return View();
         }
 
         // GET: BookingController/Confirmation
@@ -119,7 +119,21 @@ namespace ValaisBooking2020.Controllers
             bevm.confirmationMessage = "Merci de votre réservatin! Veuillez conserver votre numéro de réservation: ";
             bevm.referenceNumber = HttpContext.Session.GetString("reference");
 
-            BookingManager.AddBooking(booking);
+            List<DTO.Booking> listbooking = BookingManager.GetEveryReservation();
+            int check = 0;
+            foreach(var book in listbooking)
+            {
+                if(book.Reference == reference)
+                {
+                    check = 1;
+                }
+            }
+            if (check == 0)
+            {
+                BookingManager.AddBooking(booking);
+            }
+            
+
             
 
             return View();

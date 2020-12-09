@@ -23,6 +23,8 @@ namespace BLL
         void SearchAdvanced(List<Object> listCriteriaRoom, List<Object> listCriteriaHotel, DateTime checkIn, DateTime checkOut);
         Booking UpdateBooking(string Reference, DateTime CheckIn, DateTime CheckOut);
         int DeleteBooking(int idBooking);
-       
+        List<Booking> GetEveryReservation();
+
+
     }
 }

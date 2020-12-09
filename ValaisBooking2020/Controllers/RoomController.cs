@@ -116,8 +116,15 @@ namespace ValaisBooking2020.Controllers
             //récupere toutes les chambres d'un Hotel par rapport l'ID Hotel
             DTO.Room room = RoomManager.SearchRoomById(id);
 
+            //récupéré l'ID Hotel
+            var idhotel = HttpContext.Session.GetInt32("idHotel");
+            int idHotel = (int)idhotel;
+
+            int idRoom = room.IdRoom;
+            HttpContext.Session.SetInt32("idRoom", idRoom);
+
             //récupere toutes les photos lié à un Id Hotel
-            List<DTO.Picture> picture = PictureManager.SearchListPicture(id);
+            List<DTO.Picture> picture = PictureManager.SearchListPicture(idRoom);
 
             var date1 = HttpContext.Session.GetString("firstdate");
             var date2 = HttpContext.Session.GetString("seconddate");
@@ -130,7 +137,6 @@ namespace ValaisBooking2020.Controllers
             int totalAvailableRooms = (int)availableRoomsNb;
 
             //calcul du nombre de room total par rapport a l'ID de l'hotel
-            int idHotel = (int) HttpContext.Session.GetInt32("idHotel");
             List<DTO.Room> totalRoom = RoomManager.GetEveryRoomByIdHotel(idHotel);
             int totalRooms = totalRoom.Count;
 
@@ -141,10 +147,7 @@ namespace ValaisBooking2020.Controllers
             double finalPrice = HotelManager.GetExtraPrice(price, totalRooms, totalAvailableRooms);
             string bookingPrice = finalPrice.ToString();
             HttpContext.Session.SetString("bookingPrice", bookingPrice);
-
-            int idRoom = room.IdRoom;
-            HttpContext.Session.SetInt32("idRoom", idRoom);
-
+        
             var result = new RoomPictureViewModel
             {
                 Description = room.Description,

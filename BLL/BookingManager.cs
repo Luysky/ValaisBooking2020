@@ -48,7 +48,12 @@ namespace BLL
             return price;
         }
 
-        
+        public List<Booking> GetEveryReservation()
+        {
+            return BookingDB.GetEveryReservation();
+        }
+
+
         public Booking AddBooking(Booking booking)
         {
             return BookingDB.AddBooking(booking);

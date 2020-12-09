@@ -24,8 +24,15 @@
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Book", "Book", new { id = Model.IdRoom })
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Booking" asp-action="Index" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="submit" value="Réservation" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
 </div>
 <table>
     <thead>
