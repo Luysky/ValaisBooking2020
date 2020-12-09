@@ -17,11 +17,6 @@ namespace ValaisBooking2020.Controllers
         
         private IBookingManager BookingManager { get; }
 
-        /*
-        [TempData]
-        public DTO.Booking booking { get; set; }
-        */
-
         public BookingController(IBookingManager bookingManager)
         {
             BookingManager = bookingManager;
@@ -72,19 +67,7 @@ namespace ValaisBooking2020.Controllers
         // GET: BookingController/Details/5
         public ActionResult Details(BookingConfirmationViewModel bcvm)
         {
-            /*
-            DTO.Booking booking = new DTO.Booking
-            {
-                Reference = bcvm.Reference,
-                CheckIn = bcvm.CheckIn,
-                CheckOut = bcvm.CheckOut,
-                Lastname = bcvm.Lastname,
-                Firstname = bcvm.Firstname,
-                Amount = bcvm.Amount,
-                IdRoom = bcvm.IdRoom
-            };
-            */
-            // return RedirectToAction("Confirmation", "Booking",bevm);
+           
             return View(bcvm);
         }
 
