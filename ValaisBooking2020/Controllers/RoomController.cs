@@ -20,12 +20,6 @@ namespace ValaisBooking2020.Controllers
         private IPictureManager PictureManager { get; }
         
 
-        [TempData]
-        public DateTime dateIn { get; set; }
-        public DateTime dateOut { get; set; }
-        private List<DTO.Room> bookings { get; set; }
-        private string location { get; set; }
-
         public RoomController(IRoomManager roomManager, IBookingManager bookingManager, IHotelManager hotelManager, IPictureManager pictureManager)
         {
             RoomManager = roomManager;
@@ -38,8 +32,6 @@ namespace ValaisBooking2020.Controllers
         [HttpGet]
         public ActionResult Index(SimpleSearchViewModel ssvm)
         {
-            dateIn = ssvm.checkIn;
-            dateOut = ssvm.checkOut;
 
             
             DateTime firstDateDt = ssvm.checkIn;
@@ -59,20 +51,11 @@ namespace ValaisBooking2020.Controllers
             criteria.Add(null);
             criteria.Add(null);
 
-            location = city;
             HttpContext.Session.SetString("city", city);
 
             //recherche de tous les hotels pour une localisation
             var resulthotel = HotelManager.GetHotels();
             var hotel = HotelManager.GetHotelsMultiQueries(criteria, resulthotel);
-
-            //recherche de toutes les rooms non réservé 
-            //var list =  BookingManager.GetBookingsWithRoomAndDates(ssvm.checkIn, ssvm.checkOut);
-            //var roomlist = BookingManager.SearchSimple(list, ssvm.cities.ToString());
-
-            
-
-            //bookings = roomlist;
 
             return View(hotel);
         }

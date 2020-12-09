@@ -16,12 +16,6 @@ namespace ValaisBooking2020.Controllers
         private IHotelManager HotelManager { get; }
         private IPictureManager PictureManager { get; }
 
-        [TempData]
-        public DateTime dateIn { get; set; }
-        public DateTime dateOut { get; set; }
-        private List<DTO.Room> bookings { get; set; }
-        private string location { get; set; }
-
         public RoomAdvancedController(IRoomManager roomManager, IBookingManager bookingManager, IHotelManager hotelManager, IPictureManager pictureManager)
         {
             RoomManager = roomManager;
@@ -34,8 +28,6 @@ namespace ValaisBooking2020.Controllers
         [HttpGet]
         public ActionResult Index(AdvancedSearchViewModel asvm)
         {
-            dateIn = asvm.checkIn;
-            dateOut = asvm.checkOut;
 
             string firstdate = asvm.checkIn.ToString();
             HttpContext.Session.SetString("firstdate", firstdate);
@@ -154,9 +146,6 @@ namespace ValaisBooking2020.Controllers
 
             //calclul du prix par rapport au nombre de nuits
             double price = BookingManager.CalculatePrice(room.Price, checkIn, checkOut);
-
-            //List<int> listIdRoomFromBookingList = HotelManager.GetIdRoomFromBookingList(BookingManager.GetAllReservation(), checkIn, checkOut);
-            //List<int> listHotelFromRoomId = HotelManager.GetHotelFromRoomId(listIdRoomFromBookingList);
 
             int idHotel = (int) HttpContext.Session.GetInt32("idHotel");
             List<DTO.Room> totalRoom = RoomManager.GetEveryRoomByIdHotel(idHotel);
