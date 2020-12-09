@@ -84,12 +84,8 @@ namespace ValaisBooking2020.Controllers
                 IdRoom = bcvm.IdRoom
             };
             */
-
-           
-            BookingEndViewModel bevm = new BookingEndViewModel();
-
             // return RedirectToAction("Confirmation", "Booking",bevm);
-            return View();
+            return View(bcvm);
         }
 
         // GET: BookingController/Confirmation
@@ -123,7 +119,7 @@ namespace ValaisBooking2020.Controllers
             int check = 0;
             foreach(var book in listbooking)
             {
-                if(book.Reference == reference)
+                if(book.Reference == reference && book.IdRoom == id)
                 {
                     check = 1;
                 }
@@ -132,11 +128,8 @@ namespace ValaisBooking2020.Controllers
             {
                 BookingManager.AddBooking(booking);
             }
-            
-
-            
-
-            return View();
+   
+            return View(bevm);
         }
 
         // POST: BookingController/Create

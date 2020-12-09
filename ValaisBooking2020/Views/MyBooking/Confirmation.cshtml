@@ -1,4 +1,4 @@
-﻿@model ValaisBooking2020.Models.BookingEndViewModel
+﻿@model ValaisBooking2020.Models.BookingCancelViewModel
 
 @{
     ViewData["Title"] = "Confirmation";
@@ -7,14 +7,11 @@
 <h1>Confirmation</h1>
 
 <div>
-    <h4>BookingEndViewModel</h4>
+    <h4>BookingCancelViewModel</h4>
     <hr />
     <dl class="row">
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.confirmationMessage)
-        </dd>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.referenceNumber)
+            @Html.DisplayFor(model => model.confirmationCancelMessage)
         </dd>
     </dl>
 </div>

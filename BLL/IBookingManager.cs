@@ -22,9 +22,9 @@ namespace BLL
         List<Room> SearchEveryAvailableRooms(List<int> listRoomBooked);
         void SearchAdvanced(List<Object> listCriteriaRoom, List<Object> listCriteriaHotel, DateTime checkIn, DateTime checkOut);
         Booking UpdateBooking(string Reference, DateTime CheckIn, DateTime CheckOut);
-        int DeleteBooking(int idBooking);
+        int DeleteBooking(string Reference);
         List<Booking> GetEveryReservation();
-
+        Booking GetMyReservation(string reference, string firstname, string lastname);
 
     }
 }

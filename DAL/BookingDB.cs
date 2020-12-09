@@ -47,6 +47,55 @@ namespace DAL
             return bookings;
         }
 
+        public Booking GetMyReservation(string reference, string firstname, string lastname)
+        {
+            Booking result = null;
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM Bookings WHERE Reference = @Reference AND Firstname = @Firstname AND Lastname = @Lastname";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+                    cmd.Parameters.AddWithValue("@Reference", reference);
+                    cmd.Parameters.AddWithValue("@Firstname", firstname);
+                    cmd.Parameters.AddWithValue("@Lastname", lastname);
+
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+                        while (dr.Read())
+                        {
+
+                            if (result == null)
+                                result = new Booking();
+
+                            Booking bookings = new Booking();
+
+                            bookings.IdBooking = (int)dr["IdBooking"];
+                            bookings.Reference = (string)dr["Reference"];
+                            bookings.CheckIn = (DateTime)dr["CheckIn"];
+                            bookings.CheckOut = (DateTime)dr["CheckOut"];
+                            bookings.Firstname = (string)dr["Firstname"];
+                            bookings.Lastname = (string)dr["Lastname"];
+                            bookings.Amount = (double)(decimal)dr["Amount"];
+                            bookings.IdRoom = (int)dr["IdRoom"];
+
+                            result = bookings;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return result;
+        }
+
         public List<Booking> GetAllReservation()
         {
             List<Booking> results = null;
@@ -265,7 +314,7 @@ namespace DAL
         }
 
 
-        public int DeleteBooking(int idBooking)
+        public int DeleteBooking(string Reference)
         {
             int result = 0;
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -274,9 +323,9 @@ namespace DAL
             {
                 using (SqlConnection cn = new SqlConnection(connectionString))
                 {
-                    string query = "DELETE FROM Bookings WHERE IdBooking = @idBooking";
+                    string query = "DELETE FROM Bookings WHERE Reference = @Reference";
                     SqlCommand cmd = new SqlCommand(query, cn);
-                    cmd.Parameters.AddWithValue("@idBooking", idBooking);
+                    cmd.Parameters.AddWithValue("@Reference", Reference);
 
                     cn.Open();
 

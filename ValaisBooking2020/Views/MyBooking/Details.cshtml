@@ -9,7 +9,7 @@
 <div>
     <h4>BookingConfirmationViewModel</h4>
     <hr />
-    <form asp-controller="Booking" asp-action="Confirmation">
+    <form asp-controller="MyBooking" asp-action="Confirmation">
         <dl class="row">
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Reference)
@@ -48,11 +48,11 @@
                 @Html.DisplayFor(model => model.Amount)
             </dd>
             <div class="form-group">
-                <input type="submit" value="Réserver" class="btn btn-primary" />
+                <input type="submit" value="Annuler réservation" class="btn btn-primary" />
             </div>
         </dl>
     </form>
-</div>
+></div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>

@@ -48,6 +48,11 @@ namespace BLL
             return price;
         }
 
+        public Booking GetMyReservation(string reference, string firstname, string lastname)
+        {
+            return BookingDB.GetMyReservation(reference, firstname, lastname);
+        }
+
         public List<Booking> GetEveryReservation()
         {
             return BookingDB.GetEveryReservation();
@@ -253,9 +258,9 @@ namespace BLL
             return BookingDB.UpdateBooking(Reference, CheckIn, CheckOut);
         }
 
-        public int DeleteBooking(int idBooking)
+        public int DeleteBooking(string Reference)
         {
-            return BookingDB.DeleteBooking(idBooking);
+            return BookingDB.DeleteBooking(Reference);
         }
     }
 }
