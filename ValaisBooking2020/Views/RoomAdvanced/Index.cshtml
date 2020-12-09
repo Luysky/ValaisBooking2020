@@ -4,37 +4,34 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Liste des hotels</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Nom
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                Ville
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                Catégorie
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasWifi)
+                Wifi
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasParking)
+                Parking
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Téléphone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Website)
+                Website
             </th>
             <th></th>
         </tr>
@@ -67,9 +64,7 @@
                 @Html.DisplayFor(modelItem => item.Website)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.IdHotel }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", new {  id=item.IdHotel }) 
             </td>
         </tr>
 }

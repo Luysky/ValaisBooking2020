@@ -4,40 +4,34 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Liste des hotels</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdHotel)
+                Nom
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Ville
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                Catégorie
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                Wifi
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasWifi)
+                Parking
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasParking)
+                Téléphone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Website)
+                Website
             </th>
             <th></th>
         </tr>
@@ -45,9 +39,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdHotel)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

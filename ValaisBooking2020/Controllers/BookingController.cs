@@ -95,7 +95,7 @@ namespace ValaisBooking2020.Controllers
             };
 
 
-            bevm.confirmationMessage = "Merci de votre réservatin! Veuillez conserver votre numéro de réservation: ";
+            bevm.confirmationMessage = "Merci de votre réservation! Veuillez conserver votre numéro de réservation: ";
             bevm.referenceNumber = HttpContext.Session.GetString("reference");
 
             List<DTO.Booking> listbooking = BookingManager.GetEveryReservation();

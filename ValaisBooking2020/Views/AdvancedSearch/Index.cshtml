@@ -4,22 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Recherche multicritères</h1>
 
-<h4>AdvancedSearchViewModel</h4>
+<h4>Veuillez faire vos sélections.</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-controller="RoomAdvanced" asp-action="Index" method="get">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @Html.DropDownListFor(m => m.cities, new SelectList(Enum.GetValues(typeof(Cities))), "Select Cities")
+            @Html.DropDownListFor(m => m.cities, new SelectList(Enum.GetValues(typeof(Cities))), "Choix ville")
+            <p> </p>
             <div class="form-group">
-                <label asp-for="checkIn" class="control-label"></label>
+                <label>Date de checkin</label>
                 <input asp-for="checkIn" class="form-control" />
                 <span asp-validation-for="checkIn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="checkOut" class="control-label"></label>
+                <label>Date de checkout</label>
                 <input asp-for="checkOut" class="form-control" />
                 <span asp-validation-for="checkOut" class="text-danger"></span>
             </div>
@@ -31,41 +32,37 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="type" class="control-label">lit simple (1) | lit double (2)</label>
+                <label asp-for="type" class="control-label">Lit simple (1) | lit double (2)</label>
                 <input asp-for="type" type="number" min="1" max="2" class="form-control" />
                 <span asp-validation-for="type" class="text-danger"></span>
             </div>
 
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="HasWifi" /> @Html.DisplayNameFor(model => model.HasWifi)
+                    <input class="form-check-input" asp-for="HasWifi" /> Wifi
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="HasParking" /> @Html.DisplayNameFor(model => model.HasParking)
+                    <input class="form-check-input" asp-for="HasParking" /> Parking
                 </label>
             </div>
 
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="HasTv" /> @Html.DisplayNameFor(model => model.HasTv)
+                    <input class="form-check-input" asp-for="HasTv" /> Tv 
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="HasHairDryer" /> @Html.DisplayNameFor(model => model.HasHairDryer)
+                    <input class="form-check-input" asp-for="HasHairDryer" /> Sèche-cheveux
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Valider" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

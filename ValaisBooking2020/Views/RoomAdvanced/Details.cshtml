@@ -4,28 +4,25 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Liste des chambres</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Number)
+                Num. Chambre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                Type
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Prix
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasTV)
+                Tv
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasHairDryer)
+                Sèche-cheveux
             </th>
             <th></th>
         </tr>
@@ -49,9 +46,7 @@
                 @Html.DisplayFor(modelItem => item.HasHairDryer)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Picture", "Picture", new { id = item.IdRoom }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Picture", "Picture", new { id = item.IdRoom }) 
             </td>
         </tr>
 }

@@ -7,20 +7,15 @@
 <h1>Confirmation</h1>
 
 <div>
-    <h4>BookingCancelViewModel</h4>
     <hr />
     <form asp-controller="Home" asp-action="Index">
         <dl class="row">
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.confirmationCancelMessage)
             </dd>
-            <dd class="form-group">
+            <dd class="col-sm-10">
                 <input type="submit" value="Retour menu" class="btn btn-primary" />
             </dd>
         </dl>
     </form>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
 </div>
