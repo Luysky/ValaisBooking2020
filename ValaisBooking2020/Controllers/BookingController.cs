@@ -2,14 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ValaisBooking2020.Models;
+
+using System.Text.Json;
 
 namespace ValaisBooking2020.Controllers
 {
     public class BookingController : Controller
     {
+        
+
+        private IBookingManager BookingManager { get; }
+
+        /*
+        [TempData]
+        public DTO.Booking booking { get; set; }
+        */
+
+        public BookingController(IBookingManager bookingManager)
+        {
+            BookingManager = bookingManager;
+        }
+
         // GET: BookingController
         [HttpGet]
         public ActionResult Index()
@@ -24,9 +41,13 @@ namespace ValaisBooking2020.Controllers
 
             bcvm.Reference = DateTime.Now.ToString("yyyymmddhhmmss");
 
+            HttpContext.Session.SetString("reference", bcvm.Reference);
+
             bcvm.Firstname = bvm.Firstname;
+            HttpContext.Session.SetString("firstname", bcvm.Firstname);
 
             bcvm.Lastname = bvm.Lastname;
+            HttpContext.Session.SetString("lastname", bcvm.Lastname);
 
             var id = HttpContext.Session.GetInt32("idRoom");
             int idRoom = (int)id;
@@ -51,12 +72,56 @@ namespace ValaisBooking2020.Controllers
         // GET: BookingController/Details/5
         public ActionResult Details(BookingConfirmationViewModel bcvm)
         {
-            return View();
+            /*
+            DTO.Booking booking = new DTO.Booking
+            {
+                Reference = bcvm.Reference,
+                CheckIn = bcvm.CheckIn,
+                CheckOut = bcvm.CheckOut,
+                Lastname = bcvm.Lastname,
+                Firstname = bcvm.Firstname,
+                Amount = bcvm.Amount,
+                IdRoom = bcvm.IdRoom
+            };
+            */
+
+            
+
+            BookingEndViewModel bevm = new BookingEndViewModel();
+
+            return RedirectToAction("Confirmation", "Booking",bevm);
         }
 
-        // GET: BookingController/Create
-        public ActionResult Create()
+        // GET: BookingController/Confirmation
+        public ActionResult Confirmation(BookingEndViewModel bevm)
         {
+
+            var reference = HttpContext.Session.GetString("reference");
+            var checkIn = HttpContext.Session.GetString("firstdate");
+            var checkOut = HttpContext.Session.GetString("seconddate");
+            var lastname = HttpContext.Session.GetString("lastname");
+            var firstname = HttpContext.Session.GetString("firstname");
+            var amount = HttpContext.Session.GetString("bookingPrice");
+            var id = HttpContext.Session.GetInt32("idRoom");
+
+            DTO.Booking booking = new DTO.Booking
+            {
+                Reference = (string) reference,
+                CheckIn = DateTime.Parse(checkIn),
+                CheckOut = DateTime.Parse(checkOut),
+                Lastname = lastname,
+                Firstname = firstname,
+                Amount = double.Parse(amount),
+                IdRoom = (int) id,
+            };
+
+
+            bevm.confirmationMessage = "Merci de votre réservatin! Veuillez conserver votre numéro de réservation: ";
+            bevm.referenceNumber = HttpContext.Session.GetString("reference");
+
+            BookingManager.AddBooking(booking);
+            
+
             return View();
         }
 

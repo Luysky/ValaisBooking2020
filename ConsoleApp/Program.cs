@@ -21,6 +21,8 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
        
+            /*
+
             var bookingManager = new BookingManager(Configuration);
             
 
@@ -71,7 +73,7 @@ namespace ConsoleApp
             //bookingManager.UpdateBooking("20200208080243", checkIn3, checkOut3);
             //bookingManager.GetEveryBookings();
             
-
+            */
 
         }
     }

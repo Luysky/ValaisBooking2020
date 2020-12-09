@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <p>Salut !!!!</p>
-                @Html.Label("Reference")
+                @Html.Label("Reference").ToString()
 
                 <p></p>
                 <label asp-for="Reference" class="control-label"></label>
@@ -52,7 +52,7 @@
                 <span asp-validation-for="IdRoom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Réserver" class="btn btn-primary" />
             </div>
         </form>
     </div>
