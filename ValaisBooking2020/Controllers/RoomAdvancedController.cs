@@ -122,6 +122,8 @@ namespace ValaisBooking2020.Controllers
                 }
             }
 
+            HttpContext.Session.SetInt32("idHotel", id);
+
             int availableRoomsNb = roomlistavailable.Count;
             HttpContext.Session.SetInt32("availableRoomsNb", availableRoomsNb);
             return View(roomlistavailable);
@@ -153,7 +155,8 @@ namespace ValaisBooking2020.Controllers
             //List<int> listIdRoomFromBookingList = HotelManager.GetIdRoomFromBookingList(BookingManager.GetAllReservation(), checkIn, checkOut);
             //List<int> listHotelFromRoomId = HotelManager.GetHotelFromRoomId(listIdRoomFromBookingList);
 
-            List<DTO.Room> totalRoom = RoomManager.GetEveryRoomByIdHotel(id);
+            int idHotel = (int) HttpContext.Session.GetInt32("idHotel");
+            List<DTO.Room> totalRoom = RoomManager.GetEveryRoomByIdHotel(idHotel);
             int totalRooms = totalRoom.Count;
 
             //majoration du prix par rapport au total des bookings

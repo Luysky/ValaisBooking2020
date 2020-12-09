@@ -82,17 +82,19 @@ namespace ValaisBooking2020.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-                string location = HttpContext.Session.GetString("city");
+            
+            HttpContext.Session.SetInt32("idHotel", id);
+            string location = HttpContext.Session.GetString("city");
 
-                var date1 = HttpContext.Session.GetString("firstdate");
-                var date2 = HttpContext.Session.GetString("seconddate");
-                DateTime checkIn = DateTime.Parse(date1);
-                DateTime checkOut = DateTime.Parse(date2);
+            var date1 = HttpContext.Session.GetString("firstdate");
+            var date2 = HttpContext.Session.GetString("seconddate");
+            DateTime checkIn = DateTime.Parse(date1);
+            DateTime checkOut = DateTime.Parse(date2);
 
-                var list = BookingManager.GetBookingsWithRoomAndDates(checkIn, checkOut);
-                var roomlist = BookingManager.SearchSimple(list, location, id);
+            var list = BookingManager.GetBookingsWithRoomAndDates(checkIn, checkOut);
+            var roomlist = BookingManager.SearchSimple(list, location, id);
 
-                List<DTO.Room> roomlistavailable = new List<DTO.Room>();
+            List<DTO.Room> roomlistavailable = new List<DTO.Room>();
 
                 foreach (var room in roomlist)
                 {
@@ -128,7 +130,8 @@ namespace ValaisBooking2020.Controllers
             int totalAvailableRooms = (int)availableRoomsNb;
 
             //calcul du nombre de room total par rapport a l'ID de l'hotel
-            List<DTO.Room> totalRoom = RoomManager.GetEveryRoomByIdHotel(id);
+            int idHotel = (int) HttpContext.Session.GetInt32("idHotel");
+            List<DTO.Room> totalRoom = RoomManager.GetEveryRoomByIdHotel(idHotel);
             int totalRooms = totalRoom.Count;
 
             //calclul du prix par rapport au nombre de nuits

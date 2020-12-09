@@ -13,7 +13,11 @@
         <form asp-controller="Booking" asp-action="Details" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Reference" class="control-label">@Html.DisplayNameFor(model => model.Reference)</label>
+                <p>Salut !!!!</p>
+                @Html.Label("Reference")
+
+                <p></p>
+                <label asp-for="Reference" class="control-label"></label>
                 <input asp-for="Reference" class="form-control" /> @Html.DisplayNameFor(model => model.Reference)
                 <span asp-validation-for="Reference" class="text-danger"></span>
             </div>
