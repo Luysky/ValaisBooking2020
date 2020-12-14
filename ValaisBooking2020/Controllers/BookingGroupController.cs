@@ -30,6 +30,8 @@ namespace ValaisBooking2020.Controllers
         {
             BookingGroupConfirmationViewModel bcvm = new BookingGroupConfirmationViewModel();
 
+            //récupération des données pour matcher avec la ViewModel
+
             bcvm.Reference = DateTime.Now.ToString("yyyymmmddhhmmss");
 
             HttpContext.Session.SetString("reference", bcvm.Reference);
@@ -39,12 +41,6 @@ namespace ValaisBooking2020.Controllers
 
             bcvm.Lastname = bvm.Lastname;
             HttpContext.Session.SetString("lastname", bcvm.Lastname);
-
-            /*
-            var id = HttpContext.Session.GetInt32("idRoom");
-            int idRoom = (int)id;
-            bcvm.IdRoom = idRoom;
-            */
 
             var date1 = HttpContext.Session.GetString("firstdate");
             DateTime checkIn = DateTime.Parse(date1);
@@ -56,7 +52,7 @@ namespace ValaisBooking2020.Controllers
 
             var price = HttpContext.Session.GetString("bookingPrice");
             double bookingPrice = double.Parse(price);
-            bcvm.Amount = bookingPrice;
+            bcvm.Amount = bookingPrice*95/100;
 
             return RedirectToAction("Details", "BookingGroup", bcvm);
         }
@@ -71,16 +67,26 @@ namespace ValaisBooking2020.Controllers
         public ActionResult Confirmation(BookingEndViewModel bevm)
         {
             DTO.Room room = new DTO.Room();
-            //List<int> listIdRoom = (List<int>)TempData["ListIdRoom"];
-            // object[] test = (object[])TempData["ListIdRoom"];
-            //room = (DTO.Room)test[0];
-            //listIdRoom = test;
+
             /*
+             * Tentative de récupération de List via TempData & HttpContext
+             * 
+            List<int> listIdRoom = (List<int>)TempData["ListIdRoom"];
+            object[] test = (object[])TempData["ListIdRoom"];
+            room = (DTO.Room)test[0];
+            listIdRoom = test;
+            
             string test = HttpContext.Session.GetString("ListIdRoom");
             String[] idRooms = test.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             List<int> IdRoom = idRooms.Select(x=> int.Parse(x)).ToList();
-            */
-            
+             */
+
+
+
+            /*
+             * Récupération de tous les ID room  
+             */
+
             int room1 = (int)HttpContext.Session.GetInt32("room1");
             int room2 = (int)HttpContext.Session.GetInt32("room2");
             int room3 = (int)HttpContext.Session.GetInt32("room3");
@@ -93,10 +99,12 @@ namespace ValaisBooking2020.Controllers
             int room10 = (int)HttpContext.Session.GetInt32("room10");
             int room11 = (int)HttpContext.Session.GetInt32("room11");
 
+            //stock les id room dans une list de int
             List<int> listTemp = new List<int>() { room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11 };
             
             List<int> IdRooms = new List<int>();
 
+            //Garder seulement les id room non vide
             for(int i = 0; i < listTemp.Count(); i++)
             {
                 if(listTemp[i] != 0)
@@ -107,8 +115,14 @@ namespace ValaisBooking2020.Controllers
 
             int bookingNumber = 0;
             string references = "";
-       
-                    for (int i = 0; i < IdRooms.Count(); i++)
+
+            var tempPrice = HttpContext.Session.GetString("bookingPrice");
+            double roomPrice = double.Parse(tempPrice);
+
+            double roomPriceF = roomPrice / IdRooms.Count();
+
+            //utilisation de toutes les données récupérés pour faire le booking
+            for (int i = 0; i < IdRooms.Count(); i++)
                     {
 
                         var reference = DateTime.Now.ToString("yyyyMMddhhmmss");
@@ -116,7 +130,6 @@ namespace ValaisBooking2020.Controllers
                         var checkOut = HttpContext.Session.GetString("seconddate");
                         var lastname = HttpContext.Session.GetString("lastname");
                         var firstname = HttpContext.Session.GetString("firstname");
-                        var amount = HttpContext.Session.GetString("bookingPrice");
                         var id = listTemp[i];
 
                         DTO.Booking booking = new DTO.Booking
@@ -126,7 +139,7 @@ namespace ValaisBooking2020.Controllers
                             CheckOut = DateTime.Parse(checkOut),
                             Lastname = lastname,
                             Firstname = firstname,
-                            Amount = double.Parse(amount),
+                            Amount = roomPriceF,
                             IdRoom = (int)id,
                         };
 
@@ -145,6 +158,7 @@ namespace ValaisBooking2020.Controllers
                         }
 
                         bookingNumber++;
+                //génération de num de réference unique par chambre réservée 
                         references += " * " + reference + bookingNumber;
                     }
             

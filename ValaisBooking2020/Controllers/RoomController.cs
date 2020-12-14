@@ -76,12 +76,14 @@ namespace ValaisBooking2020.Controllers
             DateTime checkIn = DateTime.Parse(date1);
             DateTime checkOut = DateTime.Parse(date2);
 
+            //ces deux méthodes permettent de connaitre les chambres encore disponible
             var list = BookingManager.GetBookingsWithRoomAndDates(checkIn, checkOut);
             var roomlist = BookingManager.SearchSimple(list, location, id);
 
             List<DTO.Room> roomlistavailable = new List<DTO.Room>();
 
-                foreach (var room in roomlist)
+            //création de la vue des chambres de l'hotel
+            foreach (var room in roomlist)
                 {
                     if (room.IdHotel == id)
                     {
@@ -145,20 +147,23 @@ namespace ValaisBooking2020.Controllers
 
         public ActionResult GroupSelection(int id)
         {
+            //enregistre l'id de l'hotel
             HttpContext.Session.SetInt32("idHotel", id);
             string location = HttpContext.Session.GetString("city");
 
+            //récupere le checkin et le checkout
             var date1 = HttpContext.Session.GetString("firstdate");
             var date2 = HttpContext.Session.GetString("seconddate");
             DateTime checkIn = DateTime.Parse(date1);
             DateTime checkOut = DateTime.Parse(date2);
 
+            //ces deux méthodes permettent de connaitre les chambres encore disponible
             var list = BookingManager.GetBookingsWithRoomAndDates(checkIn, checkOut);
             var roomlist = BookingManager.SearchSimple(list, location, id);
 
             List<RoomGroupViewModel> roomlistavailable = new List<RoomGroupViewModel>();
             
-
+            //création de la vue des chambres de l'hotel
             foreach (var room in roomlist)
             {
                 if (room.IdHotel == id)
@@ -177,6 +182,7 @@ namespace ValaisBooking2020.Controllers
                 }
             }
 
+            //enregistre le nombre de chambre réservable
             int availableRoomsNb = roomlistavailable.Count;
             HttpContext.Session.SetInt32("availableRoomsNb", availableRoomsNb);
             return View(roomlistavailable);
@@ -187,9 +193,19 @@ namespace ValaisBooking2020.Controllers
         {
             //TempData["ListIdRoom"] = selectedRoom;
 
+            /*
+             *Nous n'avons pas trouvé de moyen de transferer une liste 
+             *d'un controleur à un autre. 
+             *La seul solution que nous avons trouvé, est d'envoyer 
+             *séparement chaque élèment de la liste via les context
+             *
+             *Au maximum il peut y a voir 11 chambres réservable dans un hotel
+             */
+         
             List<int> listRooms = new List<int>();
             listRooms = selectedRoom.ToList();
 
+            
             int room1 = 0;
             int room2 = 0;
             int room3 = 0;
@@ -267,6 +283,7 @@ namespace ValaisBooking2020.Controllers
 
             List<DTO.Room> listRoom = new List<DTO.Room>();
             
+            //Récupération des rooms par appoprt au ID stocké en context
             foreach(var roomId in selectedRoom)
             {
                 DTO.Room room = new DTO.Room();
@@ -274,6 +291,7 @@ namespace ValaisBooking2020.Controllers
                 listRoom.Add(room);
             }
 
+            //récupere le checkin et le checkout
             var date1 = HttpContext.Session.GetString("firstdate");
             var date2 = HttpContext.Session.GetString("seconddate");
             DateTime checkIn = DateTime.Parse(date1);
@@ -310,7 +328,7 @@ namespace ValaisBooking2020.Controllers
                 price += finalPrice;
             }
 
-            
+            //enregistre le prix finale pour la réservation complète 
             string bookingPrice = price.ToString();
             HttpContext.Session.SetString("bookingPrice", bookingPrice);
 
