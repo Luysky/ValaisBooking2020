@@ -34,7 +34,7 @@ namespace ValaisBooking2020.Controllers
         {           
             BookingConfirmationViewModel bcvm = new BookingConfirmationViewModel();
 
-            bcvm.Reference = DateTime.Now.ToString("yyyymmmddhhmmss");
+            bcvm.Reference = DateTime.Now.ToString("yyyyMMddhhmmss");
 
             HttpContext.Session.SetString("reference", bcvm.Reference);
 

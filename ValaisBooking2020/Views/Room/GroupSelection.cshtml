@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ValaisBooking2020.Models.RoomGroupViewModel>
+
+@{
+    ViewData["Title"] = "GroupSelection";
+}
+
+<h1>GroupSelection</h1>
+
+<form asp-controller="Room" asp-action="GroupDetails">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Num. Chambre
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Type (Lit simple (1) | lit double (2))
+                </th>
+                <th>
+                    Prix
+                </th>
+                <th>
+                    Tv
+                </th>
+                <th>
+                    Sèche-cheveux
+                </th>
+                <th>
+                    Sélectionner
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HasTV)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HasHairDryer)
+                    </td>
+                    <td>
+                        <label><input type="checkbox" name="selectedRoom" value="@item.IdRoom"/></label>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Valider" class="btn btn-primary" />
+    </div>
+</form>

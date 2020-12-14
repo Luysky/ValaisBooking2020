@@ -1,0 +1,30 @@
+﻿@model ValaisBooking2020.Models.BookingEndViewModel
+
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<h1>Réservation effectuée</h1>
+
+<div>
+    <hr />
+    <form asp-controller="Home" asp-action="Index">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.confirmationMessage)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.confirmationMessage)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.referenceNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.referenceNumber)
+            </dd>
+            <dd class="col-sm-10">
+                <input type="submit" value="Retour menu" class="btn btn-primary" />
+            </dd>
+        </dl>
+    </form>
+</div>

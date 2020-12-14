@@ -73,6 +73,7 @@ namespace ValaisBooking2020.Controllers
 
             var date1 = HttpContext.Session.GetString("firstdate");
             var date2 = HttpContext.Session.GetString("seconddate");
+
             DateTime checkIn = DateTime.Parse(date1);
             DateTime checkOut = DateTime.Parse(date2);
 

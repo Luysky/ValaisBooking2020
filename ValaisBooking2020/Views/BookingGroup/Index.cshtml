@@ -1,0 +1,29 @@
+﻿@model ValaisBooking2020.Models.BookingViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Information de réservation</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="BookingGroup" asp-action="Details" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label>Prénom</label>
+                <input asp-for="Firstname" class="form-control" />
+                <span asp-validation-for="Firstname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Nom</label>
+                <input asp-for="Lastname" class="form-control" />
+                <span asp-validation-for="Lastname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Valider" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

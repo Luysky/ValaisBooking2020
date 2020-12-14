@@ -64,7 +64,10 @@
                 @Html.DisplayFor(modelItem => item.Website)
             </td>
             <td>
-                @Html.ActionLink("Rooms", "Details", new { id=item.IdHotel }) 
+                @Html.ActionLink("Rooms", "Details", new { id = item.IdHotel })
+            </td>
+            <td>
+                @Html.ActionLink("Group", "GroupSelection", new { id = item.IdHotel })
             </td>
         </tr>
 }
